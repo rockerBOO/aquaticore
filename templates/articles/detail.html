@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ article.title }}</h2>
+<em>{{ article.created|date:"F j, Y" }}</em>
+{{ article.body|linebreaks }}
+
+{% get_free_comment_count for articles.article article.id as comment_count %}
+
+{% get_free_comment_list for articles.article article.id as comment_list %}
+<h3 id="comments"><a href="{{ article.get_absolute_url }}#comments">{{ comment_count }} Comment{{ comment_count|pluralize }}</a></h3>
+{% for comment in comment_list %}
+	<div class="comment_{% cycle odd,even %}" id="c{{ comment.id }}">
+		<p><span class="comnum"><a id="c{{ comment.id }}" href="#c{{ comment.id }}">{{ forloop.counter }}</a></span> <strong>{{ comment.person_name|escape }}</strong> commented, on {{ comment.submit_date|date:"F j, Y" }} at {{ comment.submit_date|date:"P" }}:</p>
+		{{ comment.comment|escape|urlizetrunc:40|linebreaks }}
+	</div>
+{% endfor %}
+
+<h3>Post a comment</h3>
+{% free_comment_form for articles.article article.id %}
+
+{% endblock %}

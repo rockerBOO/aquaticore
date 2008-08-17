@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}blogs{% endblock %}
+
+{% block content %}
+{% if latest_article_list %}
+    {% for article in latest_article_list %}
+        <h2><a href="/articles/{{ article.id }}/">{{ article.title }}</a></h2>
+        <em style="font-size: 7pt;">{{ article.created }}</em>
+        <p>{{ article.body|safe|linebreaks }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="item">
+        <h3>Popular</h3>
+        {% for article in latest_article_list %}
+            <p><a href="/articles/{{ article.id }}/">{{ article.title }}</a></p>
+        {% endfor %}
+    </div>
+{% endblock %}
