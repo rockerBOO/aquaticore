@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block title %}blogs{% endblock %}
+{% block title %}articles{% endblock %}
 
 {% block content %}
 {% if latest_article_list %}
@@ -23,4 +23,10 @@
             <p><a href="/articles/{{ article.id }}/">{{ article.title }}</a></p>
         {% endfor %}
     </div>
+{{ request.user }}
+	{% if request.user.is_superuser %}
+	<div class="item">
+		<a href="/articles/new/">Add a new article</a>
+	</div>
+	{% endif %}
 {% endblock %}
