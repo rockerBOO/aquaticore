@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ fish.scientific_name }}{% endblock %}
+
+{% block content %}
+	{{ cn }}
+    <h2>{{ fish.scientific_name }}</h2>
+	<em>Added {{ fish.created|timesince }} ago</em>
+	<p>{{ fish.body }}</p>
+{% endblock %}
+
+{% block sidebar %}
+	<div class="item">
+		<h3>Stats</h3>
+		<ul>
+			<li>Size: {{ fish.min_size }}cm - {{ fish.max_size }}cm <em>({{ min_size_in }}in - {{ max_size_in }}in)</em></li>
+			<li>ph: {{ fish.min_ph }} - {{ fish.max_ph }}</li>
+			<li>Temp: {{ fish.min_temp }}&deg;C - {{ fish.max_temp }}&deg;C <em>({{ min_temp_f }}&deg;F - {{ max_temp_f }}&deg;F)</em></li>
+		</ul>
+	</div>
+{% endblock %}

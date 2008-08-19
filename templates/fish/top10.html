@@ -5,7 +5,14 @@
 
 {% block content %}
 	<h2>Fish</h2>
-	
+	{% if top10_fish_list %}
+	    {% for fish in top10_fish_list %}
+	        <h3><a href="/fish/{{ fish.id }}/">{{ fish.scientific_name }}</a></h3>
+	    {% endfor %}
+	    </ul>
+	{% else %}
+	    <p>No blogs are available.</p>
+	{% endif %}
 {% endblock %}
 
 {% block sidebar %}

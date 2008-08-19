@@ -92,5 +92,6 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'aquaticore.blogs',
     'aquaticore.articles',
+	'aquaticore.fish',
     'django.contrib.flatpages'
 )
