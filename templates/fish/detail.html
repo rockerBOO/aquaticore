@@ -7,6 +7,11 @@
 	{{ cn }}
     <h2>{{ fish.scientific_name }}</h2>
 	<em>Added {{ fish.created|timesince }} ago</em>
+	<ul>
+		{% for cn in common_names %}
+	        <li><a href="/fish/cn/{{ cn.id }}">{{ cn.title }}</a></li>
+	    {% endfor %}
+	</ul>
 	<p>{{ fish.body }}</p>
 {% endblock %}
 
