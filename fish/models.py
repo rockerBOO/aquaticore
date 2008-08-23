@@ -35,9 +35,9 @@ class Fish(models.Model):
 	def __unicode__(self):
 		return self.title
 
-class FishForm(ModelForm):
-	class Meta:
-		model = Fish
+# class FishForm(ModelForm):
+# 	class Meta:
+# 		model = Fish
 	
 class CommonName(models.Model):
 	title = models.CharField(max_length=200)

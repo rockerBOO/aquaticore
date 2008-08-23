@@ -1,6 +1,6 @@
 from django.template import Context, loader
 from django.http import HttpResponse
-from aquaticore.fish.models import Fish, FishFamily, CommonName
+from aquaticore.fish.models import Fish, FishFamily, CommonName, FishForm
 from django.shortcuts import render_to_response, get_object_or_404
 from datetime import datetime
 from math import *
@@ -47,14 +47,14 @@ def detail(request, fish_id):
 def add(request):
 	fish = Fish.objects.get(pk=1)
 	
-	 return render_to_response('articles/add.html', {'form': fish})
-	
-    if request.method == 'POST':
-        f = FishForm(request.POST, instance=fish)
-        if f.is_valid():
-			f.save()	
-			
+	# return render_to_response('fish/add.html', {'form': fish})
+
+	if request.method == 'POST':
+		f = FishForm(request.POST, instance=fish)
+		if f.is_valid():
+			f.save()
 			return HttpResponseRedirect('/fish/' + str(f.id))
-    else:
-        form = FishForm(instance=fish)
-    return render_to_response('articles/add.html', {'form': form})
+	else:
+		form = FishForm(instance=fish)
+	
+	return render_to_response('fish/add.html', {'form': form})
