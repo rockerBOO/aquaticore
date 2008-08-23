@@ -82,6 +82,8 @@ TEMPLATE_DIRS = (
     '/web/aquaticore/templates/'
 )
 
+# 12ac22376b8bdd0127b4d78eb5b8eae9
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

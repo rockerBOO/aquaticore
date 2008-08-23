@@ -6,13 +6,14 @@
 {% block content %}
 	{{ cn }}
     <h2>{{ fish.scientific_name }}</h2>
-	<em>Added {{ fish.created|timesince }} ago</em>
+	<!-- <em>Added {{ fish.created|timesince }} ago</em> -->
+	<p>{{ fish.body }}</p>
+	<h3>Common Names</h3>
 	<ul>
 		{% for cn in common_names %}
 	        <li><a href="/fish/cn/{{ cn.id }}">{{ cn.title }}</a></li>
 	    {% endfor %}
 	</ul>
-	<p>{{ fish.body }}</p>
 {% endblock %}
 
 {% block sidebar %}
@@ -23,5 +24,11 @@
 			<li>ph: {{ fish.min_ph }} - {{ fish.max_ph }}</li>
 			<li>Temp: {{ fish.min_temp }}&deg;C - {{ fish.max_temp }}&deg;C <em>({{ min_temp_f }}&deg;F - {{ max_temp_f }}&deg;F)</em></li>
 		</ul>
+	</div>
+	<div class="item">
+		<h3>Flickr</h3>
+		{% for flickr_photo in flickr_photos %}
+			<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-bottom: 10px;" /></a>
+		{% endfor %}
 	</div>
 {% endblock %}

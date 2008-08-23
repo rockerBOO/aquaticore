@@ -1,0 +1,286 @@
+/* HTML VARS */
+
+body,html
+{
+	background: #F0FFFE;
+	padding: 0;
+	border: 0;
+	margin: 0;	
+	font: normal normal 9pt/2 Calibri, "Lucida Grande", Helvetica, Verdana, sans-serif;
+	color: #0c3943;
+}
+
+a, a:link, a:active, a:visited 
+{
+	color: #149CB8;
+	text-decoration: none;
+	border-bottom: 1px dotted #C4DFE6;
+}
+
+a:hover
+{
+	color: #187272;
+}
+
+img
+{
+	border: 0;
+}
+
+p
+{
+	color: #285C66;
+	margin-bottom: 19px;
+	font-family: Geneva, Calibri, "Lucida Grande", Helvetica, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4
+{
+	margin: 0;
+	line-height: 1;
+}
+
+h1
+{
+	font-size: 20pt;
+}
+
+h2 
+{
+	padding: 10px 0;
+/*	font-size: 24pt;
+	font-family: Optima, Calibri, "Lucida Grande", Helvetica, Verdana, sans-serif;*/
+	font: normal normal 24pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;
+}
+
+h3
+{
+	padding: 10px 0;
+	font: normal normal 15pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;
+}
+
+h4
+{
+	padding: 10px 0;
+	font: normal normal 12pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;
+}
+
+/* CLASSES */
+
+.clear 
+{
+	clear: both;
+}
+
+.bot-border
+{
+	border-bottom: 1px solid #DEF7F7;
+}
+
+input.title 
+{
+	font: normal bold 18pt/1.4 "Lucida Grande", Helvetica, Verdana, sans-serif;
+	padding: 3px;
+	width: 90%;
+}
+
+/* IDS */
+
+#aquaticore_wrapper
+{
+	width: 910px;
+	margin: 0 auto;
+	background: #E8FAF9;
+/*	padding: 0 10px 0 10px;*/
+	clear: both;
+	border: 1px solid #DEF7F7;
+	-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+	margin-bottom: 30px;
+}
+
+/**
+ * HEADER
+ */
+
+div#header
+{
+	width: 890px;
+	height: 45px;
+	margin: 0 auto;
+	background: #FCFFAF;
+	display: block;
+	color: #000;
+	padding: 10px 15px 15px 10px;
+	border: 1px solid #F1F7A6;
+	-moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+	margin-bottom: 20px;
+}
+	div#header h1
+	{
+		padding: 10px 25px 0 10px;
+		width: 150px;
+		float: left;
+	}
+	
+	div#header ul
+	{
+		float: left;
+		width: 425px;
+	}
+	
+	div#header ul li
+	{
+		list-style: none;
+		display: inline;
+		margin: 0;
+	}
+		div#header ul li a
+		{
+			padding: 5px;
+			background: #FEFFDA;
+			border-bottom: 1px dotted #E6E7CA;
+			color: #6E770D;
+			margin-right: 5px;
+		}
+		
+		div#header ul li a:hover
+		{
+			background: #F0F5BA;
+		}
+	
+	div#search
+	{
+		margin: 10px 0;
+	}
+
+/**
+ * BODY WRAPPER
+ */
+
+div#body-wrapper
+{
+	clear: both;
+	width: 575px;
+	float: left;
+	padding: 20px 20px 20px 15px;
+}
+	div#body-wrapper em
+	{
+		color: #9FC9C7;
+	}
+	
+	div#body-wrapper div.image
+	{
+		text-align: center;
+	}
+		div#body-wrapper div.image img.bor
+		{
+			border: 5px solid #C0DBDA;
+		}
+	
+
+div#right-wrapper
+{
+	width: 285px;
+	float: left;
+	padding-right: 10px;
+	margin-bottom: 20px;
+}
+
+div#right-wrapper div.item
+{
+	padding: 10px;
+	background: #EBFFFE;
+	border-right: 2px solid #D8F0F0;
+	border-bottom: 2px solid #D8F0F0;
+	border-left: 1px solid #DEF7F7;
+	margin-top: 20px;
+}
+	div#right-wrapper div.item h3
+	{
+		font: normal normal 13pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;
+	}
+	
+	div#right-wrapper div.item p
+	{
+		color: #7DB3B0;
+	}
+	
+	div#right-wrapper div.item p em
+	{
+		color: #9FC9C7;
+	}
+
+/**
+ * FOOTER
+ */
+
+div#footer
+{
+/*	background: #DBF8FF;*/
+	border-top: 1px solid #D7F5F7;
+	padding: 10px;
+	clear: both;
+}
+	div#footer ul
+	{
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+		div#footer ul li
+		{
+			list-style: none;
+			display: inline;
+			margin: 0 5px 0 0;
+		}
+
+div#footer_debug
+{
+	background: #D6F7FF;
+	padding: 10px;
+	color: #1d6271;
+	clear: both;
+}
+	div#footer_debug a
+	{
+		color: #296279;
+		border-bottom: 1px solid #4A7B8F;
+	}
+
+	div#footer_debug a:hover
+	{
+		color: #275A70;
+		border-bottom: 1px solid #233F4B;
+	}
+
+
+div#error
+{
+    padding: 20px; 
+    font-size: 12pt;
+    color: #DF9C9C;
+	border-bottom: 2px solid #FFF5F5;
+}
+
+div#right_side
+{
+	width: 20%;
+	float: right;
+}
+	div#right_side div.box
+	{
+		background: #BADCE9;
+		margin: 10px;
+		padding: 20px;
+	}
+
+div#left_side
+{
+	width: 80%;
+	float: left;
+}

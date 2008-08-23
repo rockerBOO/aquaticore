@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class FishFamily(models.Model):
 	title = models.CharField(max_length=200)
@@ -33,7 +34,11 @@ class Fish(models.Model):
 
 	def __unicode__(self):
 		return self.title
-		
+
+class FishForm(ModelForm):
+	class Meta:
+		model = Fish
+	
 class CommonName(models.Model):
 	title = models.CharField(max_length=200)
 	created = models.DateTimeField()
