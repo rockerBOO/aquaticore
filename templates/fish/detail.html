@@ -5,15 +5,37 @@
 
 {% block content %}
 	{{ cn }}
-    <h2>{{ fish.scientific_name }}</h2>
+    <h2 style="margin-bottom: 30px;">{{ fish.scientific_name }}</h2>
+	{% for flickr_photo in flickr_photos %}
+		<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-right: 10px;" /></a>
+	{% endfor %}
 	<!-- <em>Added {{ fish.created|timesince }} ago</em> -->
 	<p>{{ fish.body }}</p>
-	<h3>Common Names</h3>
-	<ul>
+	{{ common_name }}
+	<h3 class="info_left">names</h3>
+	<ul class="info_right">
 		{% for cn in common_names %}
-	        <li><a href="/fish/cn/{{ cn.id }}">{{ cn.title }}</a></li>
+	        <li><a href="/fish/common_name/{{ cn.id }}">{{ cn.title }}</a></li>
 	    {% endfor %}
+		<li><a href="">Add</a></li>
 	</ul>
+	<div class="clear bot-border"><span></span></div>
+	<h3 class="info_left">diet</h3>
+	<ul class="info_right">
+		{% for diet in diets %}
+	        <li><a href="/fish/diet/{{ diet.id }}">{{ diet.title }}</a></li>
+	    {% endfor %}
+		<li><a href="">Add</a></li>
+	</ul>
+	<div class="clear bot-border"><span></span></div>
+	<h3 class="info_left">origins</h3>
+	<ul class="info_right">
+		{% for origin in fish_origins %}
+	        <li><a href="/fish/origin/{{ origin.id }}">{{ origin.title }}</a></li>
+	    {% endfor %}
+		<li><a href="">Add</a></li>
+	</ul>
+	<div class="clear bot-border"><span></span></div>
 {% endblock %}
 
 {% block sidebar %}
@@ -24,11 +46,5 @@
 			<li>ph: {{ fish.min_ph }} - {{ fish.max_ph }}</li>
 			<li>Temp: {{ fish.min_temp }}&deg;C - {{ fish.max_temp }}&deg;C <em>({{ min_temp_f }}&deg;F - {{ max_temp_f }}&deg;F)</em></li>
 		</ul>
-	</div>
-	<div class="item">
-		<h3>Flickr</h3>
-		{% for flickr_photo in flickr_photos %}
-			<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-bottom: 10px;" /></a>
-		{% endfor %}
 	</div>
 {% endblock %}

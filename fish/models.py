@@ -1,5 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
+from django.contrib import admin
+
 
 class FishFamily(models.Model):
 	title = models.CharField(max_length=200)
@@ -14,7 +16,6 @@ class FishOrder(models.Model):
 	title = models.CharField(max_length=200)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-	
 
 class Fish(models.Model):
 	body = models.TextField()
@@ -34,10 +35,6 @@ class Fish(models.Model):
 
 	def __unicode__(self):
 		return self.title
-
-# class FishForm(ModelForm):
-# 	class Meta:
-# 		model = Fish
 	
 class CommonName(models.Model):
 	title = models.CharField(max_length=200)
@@ -67,3 +64,5 @@ class FishOrigin(models.Model):
 	title = models.CharField(max_length=200)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
+	
+admin.site.register(Fish)

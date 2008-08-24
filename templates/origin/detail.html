@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ origin.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ origin.title }}</h2>
+<p><em>{{ origin.created|date:"F j, Y" }}</em><!-- <a href="/fish/origin/{{ origin.id }}/delete/">Delete</a></em> --></p>
+{% for fish in fishes %}
+	<h3><a href="/fish/{{ fish.id }}">{{ fish.scientific_name }}</a></h3>
+{% endfor %}
+{% endblock %}
