@@ -13,13 +13,14 @@
     <meta name="revisit-after" content="3 days" />
 
     <link rel="stylesheet" href="http://aquaticore.com/assets/css/global.css" type="text/css" />
+	<script type="text/javascript" charset="UTF-8" src="http://aquaticore.com/assets/js/jquery.js"></script>
+	{% block extra_head %}{% endblock %}
 </head>
 <body>
     <div id="header">
         <h1><a href="/">aquaticore</a></h1>
         <ul>
             <li><a href="/blogs">entries</a></li>
-
             <li><a href="/articles">articles</a></li>
             <li><a href="/fish">fish</a></li>
             <li><a href="/plants">plants</a></li> 
@@ -40,14 +41,14 @@
             {% endblock %}
         </div>
         <div id="footer">
-                <ul>
-                    <li>&copy; 2008 aquaticore<li>
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><a href="/help">Help</a></li>
-                    <li><a href="/tos">TOS</a></li>
-                    <li><a href="/privacy">Privacy</a></li>        
-                </ul>
+			<ul>
+			    <li>&copy; 2008 aquaticore<li>
+			    <li><a href="/about">About Us</a></li>
+			    <li><a href="/contact">Contact</a></li>
+			    <li><a href="/help">Help</a></li>
+			    <li><a href="/tos">TOS</a></li>
+			    <li><a href="/privacy">Privacy</a></li>        
+			</ul>
         </div>
     </div>
 </body>

@@ -22,6 +22,11 @@ a:hover
 	color: #187272;
 }
 
+em a, em a:link, em a:active, em a:visited
+{
+	color: #AAD1D0;
+}
+
 img
 {
 	border: 0;
@@ -90,6 +95,13 @@ ul li
 	border-bottom: 1px solid #DEF7F7;
 }
 
+div.large
+{
+	margin: 0 auto;
+	width: 500px;
+	padding-bottom: 30px;
+}
+
 h3.info_left
 {
 	color: #CBE6E5; 
@@ -133,7 +145,7 @@ input[type='submit']:hover {
 #aquaticore_wrapper
 {
 	width: 910px;
-	margin: 0 auto;
+	margin: 0 auto; 	
 	background: #E8FAF9;
 /*	padding: 0 10px 0 10px;*/
 	clear: both;

@@ -1,6 +1,6 @@
 from django.template import Context, loader
-from django.http import HttpResponse
-from aquaticore.fish.models import Fish, FishFamily, CommonName, FishOrigin, Diet, FishOrder
+from django.http import HttpResponse, HttpResponseRedirect
+from aquaticore.fish.models import Fish, FishFamily, CommonName, FishOrigin, Diet, FishOrder, FishForm
 from django.shortcuts import render_to_response, get_object_or_404
 from datetime import datetime
 from math import *
@@ -19,6 +19,25 @@ def top10(request):
 	
 def detail(request, fish_id):
 	fish = get_object_or_404(Fish, pk=fish_id)
+	
+	if request.method == 'POST':
+		if request.POST['action'] == 'add_origin':
+			fish_origin = FishOrigin(title=request.POST['title'], created=datetime.datetime.now())
+			fish_origin.save()
+			fish.origin.add(fish_origin)
+			return HttpResponseRedirect('/fish/' + str(fish.id))
+
+		if request.POST['action'] == 'add_diet':
+			diet = Diet(title=request.POST['title'], created=datetime.datetime.now())
+			diet.save()
+			fish.diet.add(diet)
+			return HttpResponseRedirect('/fish/' + str(fish.id))
+
+		if request.POST['action'] == 'add_common_name':
+			cn = CommonName(title=request.POST['title'], created=datetime.datetime.now())
+			cn.save()
+			fish.commonname.add(cn)
+			return HttpResponseRedirect('/fish/' + str(fish.id))
 	
 	# diet = Diet(title="Flakes", created=datetime.datetime.now())
 	# diet.save()
@@ -40,7 +59,7 @@ def detail(request, fish_id):
 	flickr = FlickrAPI('12ac22376b8bdd0127b4d78eb5b8eae9', cache=True)
 	flickr.cache = cache
 	
-	photos = flickr.photos_search(text=fish.scientific_name, sort="interestingness-desc", per_page='10')
+	photos = flickr.photos_search(text=fish.scientific_name, license="1,2,3,4,5,6,7", sort="interestingness-desc", per_page='11')
 	flickr_photos = []
 	
 	# return render_to_response('fish/detail.html', {'common_name' : photos.photos[0]['total']})
@@ -48,11 +67,18 @@ def detail(request, fish_id):
 	if photos.photos[0]['total'] != '0':
 		photos = photos.photos[0]
 	
+		i = 0
+	
 		# Add sizes for each image
 		for photo in photos.photo:
-			photo_sizes = flickr.photos_getSizes(photo_id=photo['id'])
-			flickr_photos.append({'source' : photo_sizes.sizes[0].size[1]['source'], 'url' : photo_sizes.sizes[0].size[1]['url']})
-	
+			if i == 0:
+				photo_sizes = flickr.photos_getSizes(photo_id=photo['id'])
+				flickr_photos.append({'source' : photo_sizes.sizes[0].size[3]['source'], 'url' : photo_sizes.sizes[0].size[3]['url'], 'title' : photo['title']})				
+			else:
+				photo_sizes = flickr.photos_getSizes(photo_id=photo['id'])
+				flickr_photos.append({'source' : photo_sizes.sizes[0].size[1]['source'], 'url' : photo_sizes.sizes[0].size[3]['url'], 'title' : photo['title']})
+			i = i + 1
+			
 	return render_to_response('fish/detail.html', {'fish': fish, 
 		'common_names' : common_names,
 		'diets' : diets,
@@ -68,12 +94,24 @@ def diet_detail(request, diet_id):
 	fishes = Fish.objects.filter(diet=diet)
 
 	return render_to_response('diet/detail.html', {'diet' : diet, 'fishes' : fishes})
+	
+def diet_delete(request, diet_id):
+	diet = get_object_or_404(Diet, pk=diet_id)
+	diet.delete()
+	
+	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def origin_detail(request, origin_id):
 	origin = get_object_or_404(FishOrigin, pk=origin_id)
 	fishes = Fish.objects.filter(origin=origin)
 
 	return render_to_response('origin/detail.html', {'origin' : origin, 'fishes' : fishes})
+	
+def origin_delete(request, origin_id):
+	origin = get_object_or_404(FishOrigin, pk=origin_id)
+	origin.delete()
+
+	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def common_name_detail(request, common_name_id):
 	common_name = get_object_or_404(CommonName, pk=common_name_id)
@@ -81,47 +119,20 @@ def common_name_detail(request, common_name_id):
 
 	return render_to_response('common_name/detail.html', {'common_name' : common_name, 'fishes' : fishes})
 
+def common_name_detail(request, common_name_id):
+	common_name = get_object_or_404(CommonName, pk=common_name_id)
+	common_name.delete()
+
+	return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 def add(request):
-	
-	# fo = FishOrder(title="Perciformes", created=datetime.datetime.now())
-	# fo.save()
-	# 
-	# # ff = FishFamily.objects.get(title="Melanotaeniidae")
-	# ff = FishFamily(title="Cichlidae", order=fo, created=datetime.datetime.now())
-	# ff.save()
-	# # 
-	# # # 
-	# f = Fish(scientific_name='Mikrogeophagus ramirezi', family=ff, created=datetime.datetime.now(), min_ph='5.0', max_ph='6.0', min_size='6', max_size='7', min_temp='25', max_temp='29')
-	# f.save()
-	# # 
-	# fish_origin = FishOrigin(title="Venezuela", created=datetime.datetime.now())
-	# fish_origin.save()
-	# 
-	# f.origin.add(fish_origin)
-	# 
-	# fish_origin = FishOrigin(title="Colombia", created=datetime.datetime.now())
-	# fish_origin.save()
-	# 
-	# f.origin.add(fish_origin)
-	# # 
-	# # 
-	# # 
-	# # 
-	# # 
-	# return render_to_response('fish/add.html')
-	
-	
-	fish = Fish.objects.get(pk=1)
-	
-	class FishForm(ModelForm):
-		class Meta:
-			model = fish
+	fish = Fish()
 
 	if request.method == 'POST':
-		f = FishForm(request.POST, instance=fish)
-		if f.is_valid():
-			f.save()
-			return HttpResponseRedirect('/fish/' + str(f.id))
+		form = FishForm(request.POST, instance=fish)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/fish/' + str(form.id))
 	else:
 		form = FishForm(instance=fish)
 	

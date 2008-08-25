@@ -6,8 +6,10 @@
 {% block content %}
 	<h2>Fish</h2>
 	<form method="post" action="">
-		<em>Scientific Name</em><br />
-		<input type="text" name="scientific_name" value="" />
+		<ul>
+		{{ form.as_ul }}
+		</ul>
+		<input type="submit" value="Add" />
 	</form>
 {% endblock %}
 

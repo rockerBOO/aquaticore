@@ -7,7 +7,7 @@
 	{{ cn }}
     <h2 style="margin-bottom: 30px;">{{ fish.scientific_name }}</h2>
 	{% for flickr_photo in flickr_photos %}
-		<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-right: 10px;" /></a>
+		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-right: 10px;" /></a>{% if forloop.first %}</div>{% endif %}
 	{% endfor %}
 	<!-- <em>Added {{ fish.created|timesince }} ago</em> -->
 	<p>{{ fish.body }}</p>
@@ -15,26 +15,57 @@
 	<h3 class="info_left">names</h3>
 	<ul class="info_right">
 		{% for cn in common_names %}
-	        <li><a href="/fish/common_name/{{ cn.id }}">{{ cn.title }}</a></li>
+	        <li><a href="/fish/common_name/{{ cn.id }}">{{ cn.title }}</a> <em><a href="/fish/common_name/{{ cn.id }}/delete/">d</a></em></li>
 	    {% endfor %}
-		<li><a href="">Add</a></li>
+		<li><em><a href="javascript:;" onclick="jQuery('#add_common_name').toggle()">Add</a></em></li>
 	</ul>
+	<form method="post" action="" id="add_common_name" style="display: none;">
+		<input type="hidden" name="action" value="add_common_name" />
+		<ul class="info_right">
+			<li><em>common name</em></li>
+			<li><input type="text" name="title" value="" /></li>
+			<li><input type="submit" value="add" />
+		</ul>
+	</form>
 	<div class="clear bot-border"><span></span></div>
+	
+	
+	
 	<h3 class="info_left">diet</h3>
 	<ul class="info_right">
 		{% for diet in diets %}
-	        <li><a href="/fish/diet/{{ diet.id }}">{{ diet.title }}</a></li>
+	        <li><a href="/fish/diet/{{ diet.id }}">{{ diet.title }}</a> <em><a href="/fish/diet/{{ diet.id }}/delete/">d</a></em></li>
 	    {% endfor %}
-		<li><a href="">Add</a></li>
+		<li><em><a href="javascript:;" onclick="jQuery('#add_diet').toggle()">Add</a></em></li>
 	</ul>
+	<form method="post" action="" id="add_diet" style="display: none;">
+		<input type="hidden" name="action" value="add_diet" />
+		<ul class="info_right">
+			<li><em>diet</em></li>
+			<li><input type="text" name="title" value="" /></li>
+			<li><input type="submit" value="add" />
+		</ul>
+	</form>
 	<div class="clear bot-border"><span></span></div>
+	
+	
+	
+	
 	<h3 class="info_left">origins</h3>
 	<ul class="info_right">
 		{% for origin in fish_origins %}
-	        <li><a href="/fish/origin/{{ origin.id }}">{{ origin.title }}</a></li>
+	        <li><a href="/fish/origin/{{ origin.id }}">{{ origin.title }}</a> <em><a href="/fish/origin/{{ origin.id }}/delete/">d</a></em></li>
 	    {% endfor %}
-		<li><a href="">Add</a></li>
+		<li><em><a href="javascript:;" onclick="jQuery('#add_origin').toggle()">Add</a></em></li>
 	</ul>
+	<form method="post" action="" id="add_origin" style="display: none;">
+		<input type="hidden" name="action" value="add_origin" />
+		<ul class="info_right">
+			<li><em>origin</em></li>
+			<li><input type="text" name="title" value="" /></li>
+			<li><input type="submit" value="add" />
+		</ul>
+	</form>
 	<div class="clear bot-border"><span></span></div>
 {% endblock %}
 
