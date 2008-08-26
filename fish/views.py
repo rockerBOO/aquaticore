@@ -119,7 +119,7 @@ def common_name_detail(request, common_name_id):
 
 	return render_to_response('common_name/detail.html', {'common_name' : common_name, 'fishes' : fishes})
 
-def common_name_detail(request, common_name_id):
+def common_name_delete(request, common_name_id):
 	common_name = get_object_or_404(CommonName, pk=common_name_id)
 	common_name.delete()
 
