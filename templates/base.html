@@ -24,8 +24,12 @@
             <li><a href="/articles">articles</a></li>
             <li><a href="/fish">fish</a></li>
             <li><a href="/plants">plants</a></li> 
+            {% if user.is_authenticated %}
+            <li><a href="/accounts/profile/">settings</a></li>
+            {% else %}
             <li><a href="/accounts/join/">join</a></li>
             <li><a href="/accounts/login/">login</a></li>
+            {% endif %}
         </ul>
     </div>
     <div id="aquaticore_wrapper">

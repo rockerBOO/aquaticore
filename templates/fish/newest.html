@@ -4,8 +4,9 @@
 {% block title %}fish top 10{% endblock %}
 
 {% block content %}
-	<h2>Top 10 Fish</h2>
-    {% ssi /web/aquaticore/templates/fish/fish_blocks.html parsed %}
+	<h2>Fish</h2>
+    {% ssi /web/aquaticore/templates/fish/fish_list.html parsed %}
+    {{ user }}
 {% endblock %}
 
 {% block sidebar %}

@@ -1,6 +1,6 @@
-from django.template import Context, loader
+from django.template import Context, loader, RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from aquaticore.fish.models import Fish, FishFamily, CommonName, FishOrigin, Diet, FishOrder, FishForm
+from aquaticore.fish.models import *
 from django.shortcuts import render_to_response, get_object_or_404
 from datetime import datetime
 from math import *
@@ -14,29 +14,89 @@ def index(request):
 	return render_to_response('fish/index.html', {'fish_list' : fish_list})
 
 def top10(request):	
-	top10_fish_list = Fish.objects.all().order_by('-created')[:10]
-	return render_to_response('fish/top10.html', {'top10_fish_list' : top10_fish_list})
+	fish_tmp_list = Fish.objects.all().order_by('-created')[:10]
+
+	fish_list = []
+
+	for fish in fish_tmp_list:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+		
+		# Origins
+		
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+		
+		for origin in origins:
+			origin_str += origin.title
+		
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})
+
+	return render_to_response('fish/top10.html', {'fish_list' : fish_list}, context_instance=RequestContext(request))
+	
+def newest(request):	
+	fish_tmp_list = Fish.objects.all().order_by('-created')[:10]
+	
+	fish_list = []
+	
+	for fish in fish_tmp_list:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+		
+		# Origins
+		
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+		
+		for origin in origins:
+			origin_str += origin.title
+		
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})
+		
+	return render_to_response('fish/newest.html', {'fish_list' : fish_list}, context_instance=RequestContext(request))
 	
 def detail(request, fish_id):
 	fish = get_object_or_404(Fish, pk=fish_id)
 	
 	if request.method == 'POST':
 		if request.POST['action'] == 'add_origin':
-			fish_origin = FishOrigin(title=request.POST['title'], created=datetime.datetime.now())
-			fish_origin.save()
+			fish_origin = FishOrigin.objects.get(title__exact=request.POST['title'])
+			
+			if fish_origin == False:			
+				fish_origin = FishOrigin(title=request.POST['title'], created=datetime.datetime.now())
+				fish_origin.save()
+
 			fish.origin.add(fish_origin)
 			return HttpResponseRedirect('/fish/' + str(fish.id))
 
 		if request.POST['action'] == 'add_diet':
-			diet = Diet(title=request.POST['title'], created=datetime.datetime.now())
-			diet.save()
+			diet = Diet.objects.get(title__exact=request.POST['title'])
+
+			if diet == False:
+				diet = Diet(title=request.POST['title'], created=datetime.datetime.now())
+				diet.save()
+				
 			fish.diet.add(diet)
 			return HttpResponseRedirect('/fish/' + str(fish.id))
 
 		if request.POST['action'] == 'add_common_name':
-			cn = CommonName(title=request.POST['title'], created=datetime.datetime.now())
-			cn.save()
-			fish.commonname.add(cn)
+			cn = CommonName.objects.get(title__exact=request.POST['title'])
+
+			if cn == False:
+				cn = CommonName(title=request.POST['title'], created=datetime.datetime.now())
+				cn.save()
+				
+			fish.cn.add(cn)
 			return HttpResponseRedirect('/fish/' + str(fish.id))
 	
 	# diet = Diet(title="Flakes", created=datetime.datetime.now())
@@ -55,30 +115,10 @@ def detail(request, fish_id):
 	diets        = Diet.objects.filter(fish=fish)
 	fish_origins = FishOrigin.objects.filter(fish=fish)
 
-	# Flickr Photos
-	flickr = FlickrAPI('12ac22376b8bdd0127b4d78eb5b8eae9', cache=True)
-	flickr.cache = cache
+	flickr_photos = fish.get_flickr_photos(limit=11, first_large=True)
 	
-	photos = flickr.photos_search(text=fish.scientific_name, license="1,2,3,4,5,6,7", sort="interestingness-desc", per_page='11')
-	flickr_photos = []
+	# return render_to_response('fish/detail.html', {'cn' : flickr_photos})
 	
-	# return render_to_response('fish/detail.html', {'common_name' : photos.photos[0]['total']})
-	
-	if photos.photos[0]['total'] != '0':
-		photos = photos.photos[0]
-	
-		i = 0
-	
-		# Add sizes for each image
-		for photo in photos.photo:
-			if i == 0:
-				photo_sizes = flickr.photos_getSizes(photo_id=photo['id'])
-				flickr_photos.append({'source' : photo_sizes.sizes[0].size[3]['source'], 'url' : photo_sizes.sizes[0].size[3]['url'], 'title' : photo['title']})				
-			else:
-				photo_sizes = flickr.photos_getSizes(photo_id=photo['id'])
-				flickr_photos.append({'source' : photo_sizes.sizes[0].size[1]['source'], 'url' : photo_sizes.sizes[0].size[3]['url'], 'title' : photo['title']})
-			i = i + 1
-			
 	return render_to_response('fish/detail.html', {'fish': fish, 
 		'common_names' : common_names,
 		'diets' : diets,
@@ -92,38 +132,196 @@ def detail(request, fish_id):
 def diet_detail(request, diet_id):
 	diet = get_object_or_404(Diet, pk=diet_id)
 	fishes = Fish.objects.filter(diet=diet)
-
-	return render_to_response('diet/detail.html', {'diet' : diet, 'fishes' : fishes})
+	return render_to_response('diet/detail.html', {'diet' : diet, 'fishes' : fishes}, context_instance=RequestContext(request))
 	
 def diet_delete(request, diet_id):
 	diet = get_object_or_404(Diet, pk=diet_id)
-	diet.delete()
-	
+	diet.delete()	
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def origin_detail(request, origin_id):
 	origin = get_object_or_404(FishOrigin, pk=origin_id)
 	fishes = Fish.objects.filter(origin=origin)
-
-	return render_to_response('origin/detail.html', {'origin' : origin, 'fishes' : fishes})
+	return render_to_response('origin/detail.html', {'origin' : origin, 'fishes' : fishes}, context_instance=RequestContext(request))
 	
 def origin_delete(request, origin_id):
 	origin = get_object_or_404(FishOrigin, pk=origin_id)
 	origin.delete()
-
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def common_name_detail(request, common_name_id):
 	common_name = get_object_or_404(CommonName, pk=common_name_id)
 	fishes = Fish.objects.filter(commonname=common_name)
-
-	return render_to_response('common_name/detail.html', {'common_name' : common_name, 'fishes' : fishes})
+	return render_to_response('common_name/detail.html', {'common_name' : common_name, 'fishes' : fishes}, context_instance=RequestContext(request))
 
 def common_name_delete(request, common_name_id):
 	common_name = get_object_or_404(CommonName, pk=common_name_id)
 	common_name.delete()
 
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def class_detail(request, class_id):
+	fish_class = get_object_or_404(FishClass, pk=class_id)
+	family_list = FishOrder.objects.filter(fish_class=fish_class)
+
+	fishes = []
+
+	for family in family_list:
+		genus_list = FishGenus.objects.filter(family=family)		
+
+		for genus in genus_list:
+			species_list = FishSpecies.objects.filter(genus=genus)
+
+			for species in species_list:
+				fish_list = Fish.objects.filter(species=species)
+
+				for fish in fish_list:
+					fishes.append(fish)
+
+	fish_list = []
+
+	for fish in fishes:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+
+		# Origins
+
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+
+		for origin in origins:
+			origin_str += origin.title
+
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})
+
+	return render_to_response('order/detail.html', {'order' : order, 'fish_list' : fish_list}, context_instance=RequestContext(request))
+
+
+# Order
+
+def order_detail(request, order_id):
+	order = get_object_or_404(FishOrder, pk=order_id)
+	family_list = FishFamily.objects.filter(order=order)
+
+	fishes = []
+	
+	for family in family_list:
+		genus_list = FishGenus.objects.filter(family=family)		
+		
+		for genus in genus_list:
+			species_list = FishSpecies.objects.filter(genus=genus)
+		
+			for species in species_list:
+				fish_list = Fish.objects.filter(species=species)
+
+				for fish in fish_list:
+					fishes.append(fish)
+	
+	fish_list = []
+	
+	for fish in fishes:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+		
+		# Origins
+		
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+		
+		for origin in origins:
+			origin_str += origin.title
+		
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})
+					
+	return render_to_response('order/detail.html', {'order' : order, 'fish_list' : fish_list}, context_instance=RequestContext(request))
+	
+# Family
+
+def family_detail(request, family_id):
+	family = get_object_or_404(FishFamily, pk=family_id)
+	genus_list = FishGenus.objects.filter(family=family)
+
+	fishes = []
+
+	for genus in genus_list:
+		species_list = FishSpecies.objects.filter(genus=genus)
+		
+		for species in species_list:
+			fish_list = Fish.objects.filter(species=species)
+
+			for fish in fish_list:
+				fishes.append(fish)
+
+	fish_list = []
+
+	for fish in fishes:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+		
+		# Origins
+		
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+		
+		for origin in origins:
+			origin_str += origin.title
+		
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})
+
+	return render_to_response('family/detail.html', {'family' : family, 'fish_list' : fish_list}, context_instance=RequestContext(request))
+
+# Genus
+
+def genus_detail(request, genus_id):
+	genus = get_object_or_404(FishGenus, pk=genus_id)
+	species_list = FishSpecies.objects.filter(genus=genus)
+	
+	fishes = []
+	
+	for species in species_list:
+		fish_list = Fish.objects.filter(species=species)
+		
+		for fish in fish_list:
+			fishes.append(fish)
+			
+	fish_list = []
+
+	for fish in fishes:
+		# Photos
+		photos = fish.get_flickr_photos(1)
+
+		if len(photos) == 0:
+			continue
+
+		photo = photos[0]
+		
+		# Origins
+		
+		origins = FishOrigin.objects.filter(fish=fish)
+		origin_str = ''
+		
+		for origin in origins:
+			origin_str += origin.title
+		
+		fish_list.append({'fish' : fish, 'photo' : photo, 'origin' : origin_str})	
+		
+	return render_to_response('genus/detail.html', {'genus' : genus, 'fish_list' : fish_list}, context_instance=RequestContext(request))
 
 def add(request):
 	fish = Fish()
@@ -136,4 +334,4 @@ def add(request):
 	else:
 		form = FishForm(instance=fish)
 	
-	return render_to_response('fish/add.html', {'form': form})
+	return render_to_response('fish/add.html', {'form': form}, context_instance=RequestContext(request))

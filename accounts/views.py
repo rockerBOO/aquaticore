@@ -18,3 +18,6 @@ def join(request):
     else:
         form = AccountJoinForm()
     return render_to_response('aquaticore/join.html', {'form': form})
+
+def profile(request):
+	return render_to_response('aquaticore/profile.html')
