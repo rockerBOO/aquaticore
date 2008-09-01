@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block title %}fish top 10{% endblock %}
+{% block title %}fish | newest{% endblock %}
 
 {% block content %}
-	<h2>Fish</h2>
+	<h2>fish | newest</h2>
     {% ssi /web/aquaticore/templates/fish/fish_list.html parsed %}
-    {{ user }}
 {% endblock %}
 
 {% block sidebar %}

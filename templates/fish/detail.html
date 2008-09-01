@@ -7,9 +7,11 @@
 	{{ cn }}
 	<em><a href="/fish/family/{{ fish.species.genus.family.id }}">{{ fish.species.genus.family.title }}</a> <a href="/fish/order/{{ fish.species.genus.family.order.id }}">{{ fish.species.genus.family.order.title }}</a> <a href="/fish/class/{{ fish.species.genus.family.order.fish_class.id }}">{{ fish.species.genus.family.order.fish_class.title }}</a> | {{ fish.created|timesince }} ago</em>
     <h2 style="margin-bottom: 30px;"><a href="/fish/genus/{{ fish.species.genus.id }}">{{ fish.species.genus.title }}</a> {{ fish.species.title }}</h2>
-	{% for flickr_photo in flickr_photos %}
-		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ flickr_photo.url }}"><img src="{{ flickr_photo.source }}" style="margin-right: 10px;" /></a>{% if forloop.first %}</div>{% endif %}
+	{% for photo in flickr_photos %}
+		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_l }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% if forloop.first %}</div>{% endif %}
 	{% endfor %}
+	<br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em>
+	<hr />
 	{{ fish.body|linebreaks }}
 	{{ common_name }}
 	<h3 class="info_left">names</h3>
@@ -54,10 +56,11 @@
 	<h3 class="info_left">origins</h3>
 	<ul class="info_right">
 		{% for origin in fish_origins %}
-	        <li><a href="/fish/origin/{{ origin.id }}">{{ origin.title }}</a> <em><a href="/fish/{{ fish.id }}/origin/{{ origin.id }}/remove/">r</a> <a href="/fish/origin/{{ origin.id }}/delete/">d</a></em></li>
+	        <li><a href="/fish/origin/{{ origin.id }}">{{ origin.title }}</a>{% if user.is_superuser %} <em><a href="/fish/{{ fish.id }}/origin/{{ origin.id }}/remove/">r</a> <a href="/fish/origin/{{ origin.id }}/delete/">d</a></em>{% endif %}</li>
 	    {% endfor %}
-		<li><em><a href="javascript:;" onclick="jQuery('#add_origin').toggle()">Add</a></em></li>
+		{% if user.is_superuser %}<li><em><a href="javascript:;" onclick="jQuery('#add_origin').toggle()">Add</a></em></li>{% endif %}
 	</ul>
+	{% if user.is_superuser %}
 	<form method="post" action="" id="add_origin" style="display: none;">
 		<input type="hidden" name="action" value="add_origin" />
 		<ul class="info_right">
@@ -66,15 +69,35 @@
 			<li><input type="submit" value="add" />
 		</ul>
 	</form>
+	{% endif %}
 	<div class="clear bot-border"><span></span></div>
 {% endblock %}
 
-{% block sidebar %}
-	<div class="item">
-		<ul>
-			<li>Size: {{ fish.min_size }}cm - {{ fish.max_size }}cm <em>({{ min_size_in }}in - {{ max_size_in }}in)</em></li>
-			<li>ph: {{ fish.min_ph }} - {{ fish.max_ph }}</li>
-			<li>Temp: {{ fish.min_temp }}&deg;C - {{ fish.max_temp }}&deg;C <em>({{ min_temp_f }}&deg;F - {{ max_temp_f }}&deg;F)</em></li>
-		</ul>
+{% block sidebar %}	
+    <div class="options">
+        <a href="/fish/{{ fish.id }}/add_to_tank">Add to tank</a>
+        <div class="clear"><span></span></div>
+    </div>
+    
+    <div class="item">
+        <h3 class="lite"><a href="http://fishbase.org/Summary/speciesSummary.php?genusname={{ fish.species.genus.title }}&amp;speciesname={{ fish.species.title }}">fishbase</a> (<a href="http://fishbase.sinica.edu.tw/webservice/Species/SpeciesSummary.asp?Genus={{ fish.species.genus.title }}&amp;Species={{ fish.species.title }}">xml</a>)</h3>
+        {% if fishbase_info.error %}
+            <p><em>{{ fishbase_info.error }}</em></p>
+        {% else %}
+        <dl>            
+            {% for value in fishbase_info %}
+            <dt><em>{{ value.tag }}</em></dt><dd> {{ value.text }}</dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
+    </div>
+    
+    <div class="item">
+        <h3 class="lite">aquaticore</h3>
+		<dl>
+			<dt>Size</dt<dd> {{ fish.min_size }}cm - {{ fish.max_size }}cm <em>({{ min_size_in }}in - {{ max_size_in }}in)</em><dd>
+			<dt>ph</dt><dd>{{ fish.min_ph }} - {{ fish.max_ph }}</dd>
+			<dt>Temp</dt><dd>{{ fish.min_temp }}&deg;C - {{ fish.max_temp }}&deg;C <em>({{ min_temp_f }}&deg;F - {{ max_temp_f }}&deg;F)</em></dd>
+		</dl>
 	</div>
 {% endblock %}

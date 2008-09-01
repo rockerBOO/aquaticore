@@ -72,6 +72,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+	'django.middleware.gzip.GZipMiddleware',
 )
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

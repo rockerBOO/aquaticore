@@ -3,7 +3,10 @@
 {% block content %}
 <h2>Join</h2>
 <form method="post" action="">
-{{ form.as_p }}
-<input type="submit" value="Join" />
+    {% for value in form %}
+        <p><em>{{ value.label_tag }}</em><br />
+        {{ value }}</p>
+    {% endfor %}
+	<input type="submit" value="Add" />
 </form>
 {% endblock %}
