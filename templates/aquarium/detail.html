@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ order.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ aquarium.title }}</h2>
+{{ aquarium.body }}
+<hr />
+{% ssi /web/aquaticore/templates/fish/fish_blocks.html parsed %}
+{% endblock %}

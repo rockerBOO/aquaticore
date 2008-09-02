@@ -22,6 +22,7 @@ urlpatterns = patterns('',
 	(r'^accounts/login/$',   'django.contrib.auth.views.login', {'template_name': 'aquaticore/login.html'}),
 	(r'^accounts/logout/$',  'django.contrib.auth.views.logout', {'template_name' : 'aquaticore/logout.html'}),
 	(r'^accounts/',          include('aquaticore.accounts.urls')),
+	(r'^aquarium/',          include('aquaticore.aquariums.urls')),
 	(r'^feeds/',             include('aquaticore.feeds.urls')),
     (r'^/$',                 include('django.contrib.flatpages.urls')),
 )

@@ -1,6 +1,6 @@
 from django import forms
 from django.template import Context, loader, RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm

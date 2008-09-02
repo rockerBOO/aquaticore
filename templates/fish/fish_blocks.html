@@ -1,6 +1,6 @@
 {% if fish_list %}
     {% for fish in fish_list %}
-        <div style="float: left; width: 100px; height: 150px; margin: 5px;"><a href="/fish/{{ fish.fish.id }}/"  style="height: 100px;"><img src="{{ fish.photo.source }}" alt="{{ fish.fish.species.genus.title }} {{ fish.fish.species.title }}" /></a><br /><em>{{ fish.fish.species.genus.title }} {{ fish.fish.species.title }}</em></div>
+        <div style="float: left; width: 100px; height: 150px; margin: 5px;"><a href="/fish/{{ fish.fish.id }}/"  style="height: 100px;"><img src="{{ fish.photo.src }}" alt="{{ fish.fish.species.genus.title }} {{ fish.fish.species.title }}" /></a><br /><em>{{ fish.fish.species.genus.title }} {{ fish.fish.species.title }}</em></div>
         <!-- <h3 style="margin-left: 110px;"><a href="/fish/{{ fish.fish.id }}/">{{ fish.fish.species.genus.title }} {{ fish.fish.species.title }}</a></h3>
         <div class="clear" style="margin-bottom: 10px;"><span><span></div> -->
     {% endfor %}
