@@ -24,7 +24,7 @@ def top10(request):
 		photo = fish.get_flickr_photos(1)
 		
 		# Origins
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 
@@ -45,7 +45,7 @@ def newest(request):
 			photo = photos[0]
 		
 		# Origins			
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 		
@@ -57,9 +57,9 @@ def detail(request, fish_id):
 	if request.method == 'POST':
 		if request.POST['action'] == 'add_origin':
 			try:
-				fish_origin = FishOrigin.objects.get(title__exact=request.POST['title'])
+				fish_origin = Origin.objects.get(title__exact=request.POST['title'])
 			except ObjectDoesNotExist:
-				fish_origin = FishOrigin(title=request.POST['title'], created=datetime.datetime.now())
+				fish_origin = Origin(title=request.POST['title'], created=datetime.datetime.now())
 				fish_origin.save()
 
 			fish.origin.add(fish_origin)
@@ -99,7 +99,7 @@ def detail(request, fish_id):
 	
 	common_names = CommonName.objects.filter(fish=fish).distinct()
 	diets        = Diet.objects.filter(fish=fish)
-	fish_origins = FishOrigin.objects.filter(fish=fish)
+	fish_origins = Origin.objects.filter(fish=fish)
 
 	flickr_photos = fish.get_flickr_photos(limit=13, first_large=True)
 	
@@ -127,7 +127,7 @@ def diet_delete(request, diet_id):
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def origin_detail(request, origin_id):
-	origin = get_object_or_404(FishOrigin, pk=origin_id)
+	origin = get_object_or_404(Origin, pk=origin_id)
 	fishes = Fish.objects.filter(origin=origin)
 	
 	fish_list = []
@@ -142,14 +142,14 @@ def origin_detail(request, origin_id):
 		photo = photos[0]
 		
 		# Origins		
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 	
 	return render_to_response('origin/detail.html', {'origin' : origin, 'fish_list' : fish_list}, context_instance=RequestContext(request))
 	
 def origin_delete(request, origin_id):
-	origin = get_object_or_404(FishOrigin, pk=origin_id)
+	origin = get_object_or_404(Origin, pk=origin_id)
 	origin.delete()
 	return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
@@ -166,16 +166,16 @@ def common_name_delete(request, common_name_id):
 
 
 def class_detail(request, class_id):
-	fish_class = get_object_or_404(FishClass, pk=class_id)
-	family_list = FishOrder.objects.filter(fish_class=fish_class)
+	fish_class = get_object_or_404(Class, pk=class_id)
+	family_list = Order.objects.filter(fish_class=fish_class)
 
 	fishes = []
 
 	for family in family_list:
-		genus_list = FishGenus.objects.filter(family=family)		
+		genus_list = Genus.objects.filter(family=family)		
 
 		for genus in genus_list:
-			species_list = FishSpecies.objects.filter(genus=genus)
+			species_list = Species.objects.filter(genus=genus)
 
 			for species in species_list:
 				fish_list = Fish.objects.filter(species=species)
@@ -196,7 +196,7 @@ def class_detail(request, class_id):
 
 		# Origins
 
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 
@@ -207,15 +207,15 @@ def class_detail(request, class_id):
 
 def order_detail(request, order_id):
 	order = get_object_or_404(FishOrder, pk=order_id)
-	family_list = FishFamily.objects.filter(order=order)
+	family_list = Family.objects.filter(order=order)
 
 	fishes = []
 	
 	for family in family_list:
-		genus_list = FishGenus.objects.filter(family=family)		
+		genus_list = Genus.objects.filter(family=family)		
 		
 		for genus in genus_list:
-			species_list = FishSpecies.objects.filter(genus=genus)
+			species_list = Species.objects.filter(genus=genus)
 		
 			for species in species_list:
 				fish_list = Fish.objects.filter(species=species)
@@ -236,7 +236,7 @@ def order_detail(request, order_id):
 		
 		# Origins
 		
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 					
@@ -246,12 +246,12 @@ def order_detail(request, order_id):
 
 def family_detail(request, family_id):
 	family = get_object_or_404(FishFamily, pk=family_id)
-	genus_list = FishGenus.objects.filter(family=family)
+	genus_list = Genus.objects.filter(family=family)
 
 	fishes = []
 
 	for genus in genus_list:
-		species_list = FishSpecies.objects.filter(genus=genus)
+		species_list = Species.objects.filter(genus=genus)
 		
 		for species in species_list:
 			fish_list = Fish.objects.filter(species=species)
@@ -272,7 +272,7 @@ def family_detail(request, family_id):
 		
 		# Origins
 		
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 
@@ -282,7 +282,7 @@ def family_detail(request, family_id):
 
 def genus_detail(request, genus_id):
 	genus = get_object_or_404(FishGenus, pk=genus_id)
-	species_list = FishSpecies.objects.filter(genus=genus)
+	species_list = Species.objects.filter(genus=genus)
 	
 	fishes = []
 	
@@ -305,7 +305,7 @@ def genus_detail(request, genus_id):
 		
 		# Origins
 		
-		origins = FishOrigin.objects.filter(fish=fish)
+		origins = Origin.objects.filter(fish=fish)
 		
 		fish_list.append({'fish' : fish, 'photo' : photo, 'origins' : origins})
 		

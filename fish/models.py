@@ -8,7 +8,7 @@ from elementtree.ElementTree import ElementTree
 import urllib
 from django.core.cache import cache
 
-class FishClass(models.Model):
+class Class(models.Model):
 	title = models.CharField(max_length=200)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
@@ -16,36 +16,36 @@ class FishClass(models.Model):
 	def __unicode__(self):
 		return self.title
 
-class FishOrder(models.Model):
+class Order(models.Model):
 	title = models.CharField(max_length=200)
-	fish_class = models.ForeignKey(FishClass)
+	fish_class = models.ForeignKey(Class)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 
 	def __unicode__(self):
 		return self.title
 
-class FishFamily(models.Model):
+class Family(models.Model):
 	title = models.CharField(max_length=200)
-	order = models.ForeignKey(FishOrder)
+	order = models.ForeignKey(Order)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 	
 	def __unicode__(self):
 		return self.title
 
-class FishGenus(models.Model):
+class Genus(models.Model):
 	title = models.CharField(max_length=200)
-	family = models.ForeignKey(FishFamily)
+	family = models.ForeignKey(Family)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 
 	def __unicode__(self):
 		return self.title
 
-class FishSpecies(models.Model):
+class Species(models.Model):
 	title = models.CharField(max_length=200)
-	genus = models.ForeignKey(FishGenus)
+	genus = models.ForeignKey(Genus)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 
@@ -68,7 +68,7 @@ class Diet(models.Model):
 	def __unicode__(self):
 		return self.title
 
-class FishOrigin(models.Model):
+class Origin(models.Model):
 	title = models.CharField(max_length=200)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
@@ -78,8 +78,8 @@ class FishOrigin(models.Model):
 
 class Fish(models.Model):
 	body = models.TextField(null=True, blank=True)
-	species = models.ForeignKey(FishSpecies)
-	origin = models.ManyToManyField(FishOrigin, null=True, blank=True)
+	species = models.ForeignKey(Species)
+	origin = models.ManyToManyField(Origin, null=True, blank=True)
 	diet = models.ManyToManyField(Diet, null=True, blank=True)
 	cn = models.ManyToManyField(CommonName, null=True, blank=True)
 	article = models.ManyToManyField(Article, null=True, blank=True)
@@ -120,7 +120,6 @@ class Fish(models.Model):
 		
 		for photo in flickr_photos:
 			username = flickr.people_getInfo(user_id=photo.attrib['owner'])
-			
 			username = username.find('username')
 			
 			fps.append({\
@@ -189,10 +188,10 @@ class Country(models.Model):
 		return self.title
 	
 admin.site.register(Fish)
-admin.site.register(FishSpecies)
-admin.site.register(FishGenus)
-admin.site.register(FishFamily)
-admin.site.register(FishOrder)
-admin.site.register(FishClass)
+admin.site.register(Species)
+admin.site.register(Genus)
+admin.site.register(Family)
+admin.site.register(Order)
+admin.site.register(Class)
 admin.site.register(CommonName)
-admin.site.register(FishOrigin)
+admin.site.register(Origin)
