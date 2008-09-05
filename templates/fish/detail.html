@@ -6,12 +6,7 @@
 {% block content %}
 	{{ cn }}
 	<em><a href="/fish/family/{{ fish.species.genus.family.id }}">{{ fish.species.genus.family.title }}</a> <a href="/fish/order/{{ fish.species.genus.family.order.id }}">{{ fish.species.genus.family.order.title }}</a> <a href="/fish/class/{{ fish.species.genus.family.order.fish_class.id }}">{{ fish.species.genus.family.order.fish_class.title }}</a> | {{ fish.created|timesince }} ago</em>
-    <h2 style="margin-bottom: 30px;"><a href="/fish/genus/{{ fish.species.genus.id }}">{{ fish.species.genus.title }}</a> {{ fish.species.title }}</h2>
-	{% for photo in flickr_photos %}
-		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_l }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% if forloop.first %}</div>{% endif %}
-	{% endfor %}
-	<br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em>
-	<hr />
+    <h2 style="margin-bottom: 20px;"><a href="/fish/genus/{{ fish.species.genus.id }}">{{ fish.species.genus.title }}</a> {{ fish.species.title }}</h2>
 	{{ fish.body|linebreaks }}
 	{{ common_name }}
 	<h3 class="info_left">names</h3>
@@ -77,6 +72,13 @@
     <div class="options">
         <a href="/fish/{{ fish.id }}/add_to_aquarium">Add to aquarium</a>
         <div class="clear"><span></span></div>
+    </div>
+    
+    <div class="item">
+        {% for photo in flickr_photos %}
+    		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_l }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% if forloop.first %}</div>{% endif %}
+    	{% endfor %}
+    	<br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em>
     </div>
     
     <div class="item">

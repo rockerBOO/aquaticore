@@ -124,7 +124,7 @@ class Fish(models.Model):
 			
 			fps.append({\
 				'src' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_t.jpg',\
-				'src_l' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '.jpg',\
+				'src_l' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_m.jpg',\
 				'url' : 'http://flickr.com/photos/' + str(username) + '/' + photo.attrib['id'] + '/',\
 				'title' : photo.attrib['title']})
 			

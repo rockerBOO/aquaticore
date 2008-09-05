@@ -11,8 +11,18 @@ import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
-	fish_list = Fish.objects.all().order_by('-created')[:40]
-	return render_to_response('fish/index.html', {'fish_list' : fish_list}, context_instance=RequestContext(request))
+	fish_list = Fish.objects.all().order_by('?')[:1]
+	
+	for fish in fish_list:
+		photos = fish.get_flickr_photos(1)
+		
+		if len(photos) == 0:
+			continue
+			
+		fishes = {'fish' : fish, 'photos' : photos[0]}
+		break
+		
+	return render_to_response('fish/index.html', {'fish' : fishes}, context_instance=RequestContext(request))
 
 def top10(request):	
 	fish_tmp_list = Fish.objects.all().order_by('-created')[:40]
@@ -101,7 +111,7 @@ def detail(request, fish_id):
 	diets        = Diet.objects.filter(fish=fish)
 	fish_origins = Origin.objects.filter(fish=fish)
 
-	flickr_photos = fish.get_flickr_photos(limit=13, first_large=True)
+	flickr_photos = fish.get_flickr_photos(limit=5, first_large=True)
 	
 	# return render_to_response('fish/detail.html', {'cn' : flickr_photos})
 	
@@ -206,7 +216,7 @@ def class_detail(request, class_id):
 # Order
 
 def order_detail(request, order_id):
-	order = get_object_or_404(FishOrder, pk=order_id)
+	order = get_object_or_404(Order, pk=order_id)
 	family_list = Family.objects.filter(order=order)
 
 	fishes = []
@@ -245,7 +255,7 @@ def order_detail(request, order_id):
 # Family
 
 def family_detail(request, family_id):
-	family = get_object_or_404(FishFamily, pk=family_id)
+	family = get_object_or_404(Family, pk=family_id)
 	genus_list = Genus.objects.filter(family=family)
 
 	fishes = []
@@ -281,7 +291,7 @@ def family_detail(request, family_id):
 # Genus
 
 def genus_detail(request, genus_id):
-	genus = get_object_or_404(FishGenus, pk=genus_id)
+	genus = get_object_or_404(Genus, pk=genus_id)
 	species_list = Species.objects.filter(genus=genus)
 	
 	fishes = []

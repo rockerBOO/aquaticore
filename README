@@ -1,0 +1,1 @@
+drop table if exists fish_commonname, fish_country, fish_diet, fish_family, fish_fish, fish_fish_article, fish_fish_cn, fish_fish_diet, fish_genus, fish_order;
