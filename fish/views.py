@@ -309,9 +309,9 @@ def genus_detail(request, genus_id):
 		photos = fish.get_flickr_photos(1)
 
 		if len(photos) == 0:
-			continue
-
-		photo = photos[0]
+			photo = []
+		else:
+			photo = photos[0]
 		
 		# Origins
 		
