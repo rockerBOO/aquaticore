@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
+from django.contrib import admin
 
 # Uncomment the next two lines to enable the admin:
-from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -13,6 +14,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line for to enable the admin:
     (r'^admin/(.*)', admin.site.root),
+
+	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT }),
 	
     (r'^blogs/',             include('aquaticore.blogs.urls')),
     (r'^articles/',          include('aquaticore.articles.urls')),
@@ -24,5 +27,5 @@ urlpatterns = patterns('',
 	(r'^accounts/',          include('aquaticore.accounts.urls')),
 	(r'^aquarium/',          include('aquaticore.aquariums.urls')),
 	(r'^feeds/',             include('aquaticore.feeds.urls')),
-    (r'^/$',                 include('django.contrib.flatpages.urls')),
+    (r'^/$',                 include('django.contrib.flatpages.urls'), {'template_name' : 'flatpages/default.html'}),
 )

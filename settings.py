@@ -35,17 +35,17 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-# MEDIA_ROOT = '/web/aquaticore/assets'
+MEDIA_ROOT = '/web/aquaticore/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-# MEDIA_URL = 'http://home.rockerboo.net:1337/assets'
+MEDIA_URL = 'http://home.rockerboo.net:1337/media'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-# ADMIN_MEDIA_PREFIX = '/assets/'
+ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '34r3mvFDGFDGD-h$9f!-%GFDFDpFDyt^g&g&^gy#*(h(@hj(*uh(@GDFGDFGHFGH!6aat8DFGDh343-@*03(l#^4ek3@'
