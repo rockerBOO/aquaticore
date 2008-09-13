@@ -1,3 +1,15 @@
 from django.db import models
+from aquaticore.databases.models import Database
+from aquaticore.authors.models import Author
 
-# Create your models here.
+class Reference(models.Model):
+	title = models.CharField(max_length=200)
+	source = models.CharField(max_length=200)
+	year = models.IntegerField(4)
+	author = models.ForeignKey(Author)
+	database = models.ForeignKey(Database)
+	created = models.DateTimeField('date published')
+	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
+
+	def __unicode__(self):
+		return self.title

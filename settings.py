@@ -103,5 +103,14 @@ INSTALLED_APPS = (
     'aquaticore.articles',
 	'aquaticore.fish',
 	'aquaticore.aquariums',
+	'aquaticore.databases',
+	'aquaticore.common_names',
+	'aquaticore.references',
+	'aquaticore.specialists',
+	'aquaticore.diets',
+	'aquaticore.distributions',
+	'aquaticore.languages',
+	'aquaticore.authors',
+	'aquaticore.geography',
     'django.contrib.flatpages'
 )

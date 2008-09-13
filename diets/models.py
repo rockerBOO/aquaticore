@@ -1,9 +1,15 @@
 from django.db import models
-from aquaticore.databases.models import Database
 
-class Specialist(models.Model):
+class Diet(models.Model):
+	DIET_CHOICES = (
+	    ('F', 'Frozen'),
+	    ('L', 'Live'),
+		('D', 'Dry'),
+		('Q', 'Liquid'),
+	)
+	
 	title = models.CharField(max_length=200)
-	database = models.ForeignKey(Database)
+	material_type = models.CharField(max_length=1, choices=DIET_CHOICES)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 
