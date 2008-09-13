@@ -4,77 +4,13 @@ from django.contrib import admin
 from flickrapi import *
 from django.core.cache import cache
 from aquaticore.articles.models import Article
+from aquaticore.taxonomies.models import Species
+from aquaticore.diets.models import Diet
+from aquaticore.origins.models import Origin
+from aquaticore.common_names.models import CommonName
 from elementtree.ElementTree import ElementTree
 import urllib
 from django.core.cache import cache
-
-class Class(models.Model):
-	title = models.CharField(max_length=200)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class Order(models.Model):
-	title = models.CharField(max_length=200)
-	fish_class = models.ForeignKey(Class)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class Family(models.Model):
-	title = models.CharField(max_length=200)
-	order = models.ForeignKey(Order)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-	
-	def __unicode__(self):
-		return self.title
-
-class Genus(models.Model):
-	title = models.CharField(max_length=200)
-	family = models.ForeignKey(Family)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class Species(models.Model):
-	title = models.CharField(max_length=200)
-	genus = models.ForeignKey(Genus)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class CommonName(models.Model):
-	title = models.CharField(max_length=200)
-	created = models.DateTimeField()
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class Diet(models.Model):
-	title = models.CharField(max_length=200)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-
-	def __unicode__(self):
-		return self.title
-
-class Origin(models.Model):
-	title = models.CharField(max_length=200)
-	created = models.DateTimeField('date published')
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-	
-	def __unicode__(self):
-		return self.title
 
 class Fish(models.Model):
 	body = models.TextField(null=True, blank=True)
@@ -179,19 +115,4 @@ class FishForm(ModelForm):
 	class Meta:
 		model = Fish
 	
-class Country(models.Model):
-	title = models.CharField(max_length=200)
-	code = models.CharField(max_length=3)
-	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
-	
-	def __unicode__(self):
-		return self.title
-	
 admin.site.register(Fish)
-admin.site.register(Species)
-admin.site.register(Genus)
-admin.site.register(Family)
-admin.site.register(Order)
-admin.site.register(Class)
-admin.site.register(CommonName)
-admin.site.register(Origin)

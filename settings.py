@@ -112,5 +112,6 @@ INSTALLED_APPS = (
 	'aquaticore.languages',
 	'aquaticore.authors',
 	'aquaticore.geography',
+	'aquaticore.taxonomies',
     'django.contrib.flatpages'
 )
