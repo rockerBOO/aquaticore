@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ species.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ genus.name }} {{ species.name }}</h2>
+{% endblock %}
+<!-- Installing index for taxa.Phylum model
+Installing index for taxa.Class model
+Installing index for taxa.Order model
+Installing index for taxa.Family model
+Installing index for taxa.Genus model
+Installing index for taxa.Species model
+Installing index for taxa.Infraspecies model -->
+{% block sidebar %}	
+    <div class="options">
+        <a href="/fish/{{ fish.id }}/add_to_aquarium">Add to aquarium</a>
+        <div class="clear"><span></span></div>
+    </div>
+    
+    <div class="item">
+        <a href="/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a>
+        <a href="/phylum/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.phylum.name }}</a>
+        <a href="/class/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.name }}</a> 
+        <a href="/order/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.name }}</a>
+        <a href="/family/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.name }}</a>
+        <a href="/genus/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.name }}</a>
+    </div>
+    
+    <div class="item">
+        {% for photo in flickr_photos %}
+    		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_l }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% if forloop.first %}</div>{% endif %}
+    	{% endfor %}
+    	<br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em>
+    </div>
+{% endblock %}

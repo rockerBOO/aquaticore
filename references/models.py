@@ -6,8 +6,8 @@ class Reference(models.Model):
 	title = models.CharField(max_length=200)
 	source = models.CharField(max_length=200)
 	year = models.IntegerField(4)
-	author = models.ForeignKey(Author)
-	database = models.ForeignKey(Database)
+	author = models.ForeignKey('authors.Author')
+	database = models.ForeignKey('databases.Database')
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 

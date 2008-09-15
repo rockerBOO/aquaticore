@@ -4,7 +4,7 @@ from django.contrib import admin
 from flickrapi import *
 from django.core.cache import cache
 from aquaticore.articles.models import Article
-from aquaticore.taxonomies.models import Species
+from aquaticore.taxa.models import Species
 from aquaticore.diets.models import Diet
 from aquaticore.origins.models import Origin
 from aquaticore.common_names.models import CommonName
@@ -14,11 +14,11 @@ from django.core.cache import cache
 
 class Fish(models.Model):
 	body = models.TextField(null=True, blank=True)
-	species = models.ForeignKey(Species)
-	origin = models.ManyToManyField(Origin, null=True, blank=True)
-	diet = models.ManyToManyField(Diet, null=True, blank=True)
-	cn = models.ManyToManyField(CommonName, null=True, blank=True)
-	article = models.ManyToManyField(Article, null=True, blank=True)
+	species = models.ForeignKey('taxa.Species')
+	origin = models.ManyToManyField('origins.Origin', null=True, blank=True)
+	diet = models.ManyToManyField('diets.Diet', null=True, blank=True)
+	cn = models.ManyToManyField('common_names.CommonName', null=True, blank=True)
+	article = models.ManyToManyField('articles.Article', null=True, blank=True)
 	min_size = models.FloatField(null=True, blank=True)
 	max_size = models.FloatField(null=True, blank=True)
 	min_ph = models.FloatField(null=True, blank=True)
