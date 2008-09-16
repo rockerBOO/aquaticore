@@ -75,9 +75,9 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.gzip.GZipMiddleware',
 )
 
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-# CACHE_MIDDLEWARE_SECONDS = 86700
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_MIDDLEWARE_SECONDS = 86700
 
 ROOT_URLCONF = 'aquaticore.urls'
 
