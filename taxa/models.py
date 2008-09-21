@@ -2,6 +2,7 @@ from django.db import models
 from flickrapi import FlickrAPI
 from django.core.cache import cache
 
+
 class Kingdom(models.Model):
 	name = models.CharField(max_length=200, unique=True)
 	is_accepted_name = models.NullBooleanField()
@@ -83,8 +84,8 @@ class Species(models.Model):
 		flickr = FlickrAPI('12ac22376b8bdd0127b4d78eb5b8eae9', cache=True, format='etree')
 		flickr.cache = cache
 
-		keyword = '"' + self.genus.name + " " + self.name + '" OR "'
-		photos  = flickr.photos_search(text=keyword, privacy_filter=1, sort="interestingness-desc", per_page=limit)
+		keyword = "\"" + self.name + "\""
+		photos  = flickr.photos_search(text=keyword, sort="interestingness-desc", per_page=limit)
 		
 		if photos.attrib['stat'] == 'fail':
 			return False
@@ -94,13 +95,16 @@ class Species(models.Model):
 		fps = []
 		
 		for photo in flickr_photos:
-			username = flickr.people_getInfo(user_id=photo.attrib['owner'])
-			username = username.find('username')
+			info = flickr.people_getInfo(user_id=photo.attrib['owner'])
+			
+			# print info
+			
+			username = info.find('person').find('username').text
 			
 			fps.append({\
 				'src' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_t.jpg',\
 				'src_l' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_m.jpg',\
-				'url' : 'http://flickr.com/photos/' + str(username) + '/' + photo.attrib['id'] + '/',\
+				'url' : 'http://flickr.com/photos/' + unicode(username).encode('utf-8') + '/' + photo.attrib['id'] + '/',\
 				'title' : photo.attrib['title']})
 			
 		return fps

@@ -6,13 +6,7 @@
 {% block content %}
 <h2>{{ genus.name }} {{ species.name }}</h2>
 {% endblock %}
-<!-- Installing index for taxa.Phylum model
-Installing index for taxa.Class model
-Installing index for taxa.Order model
-Installing index for taxa.Family model
-Installing index for taxa.Genus model
-Installing index for taxa.Species model
-Installing index for taxa.Infraspecies model -->
+
 {% block sidebar %}	
     <div class="options">
         <a href="/fish/{{ fish.id }}/add_to_aquarium">Add to aquarium</a>
@@ -20,12 +14,21 @@ Installing index for taxa.Infraspecies model -->
     </div>
     
     <div class="item">
-        <a href="/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a>
-        <a href="/phylum/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.phylum.name }}</a>
-        <a href="/class/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.fish_class.name }}</a> 
-        <a href="/order/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.order.name }}</a>
-        <a href="/family/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.family.name }}</a>
-        <a href="/genus/{{ species.genus.family.order.fish_class.phylum.kingdom.id }}">{{ species.genus.name }}</a>
+        <ul>
+            <li><a href="/taxa/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.name }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a></li>
+            <ul>
+                <li><a href="/taxa/phylum/{{ species.genus.family.order.fish_class.phylum.name }}">{{ species.genus.family.order.fish_class.phylum.name }}</a></li>
+                <ul>
+                    <li><a href="/taxa/class/{{ species.genus.family.order.fish_class.name }}">{{ species.genus.family.order.fish_class.name }}</a></li>
+                    <ul>
+                        <li><a href="/taxa/order/{{ species.genus.family.order.name }}">{{ species.genus.family.order.name }}</a></li>
+                         <ul>
+                            <li><a href="/taxa/family/{{ species.genus.family.name }}">{{ species.genus.family.name }}</a></li>
+                        </ul>
+                    </ul>
+                </ul>
+            </ul>
+        </ul>
     </div>
     
     <div class="item">

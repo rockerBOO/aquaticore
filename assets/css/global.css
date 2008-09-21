@@ -6,7 +6,7 @@ body,html
 	padding: 0;
 	border: 0;
 	margin: 0;	
-	c
+	font: 11pt/1.4 'Helvetica Neue', Geneva, Calibri, "Lucida Grande", Helvetica, Verdana, sans-serif;
 	color: #0c3943;
 }
 
@@ -171,7 +171,7 @@ input[type='submit']:hover {
 div#header
 {
 	width: 890px;
-	height: 45px;
+	height: 40px;
 	margin: 0 auto;
 	background: #FCFFAF;
 	display: block;
@@ -190,10 +190,17 @@ div#header
 		float: left;
 	}
 	
+	div#header #logo
+	{
+		float: left;
+		padding: 5px 25px 0 10px;
+	}
+	
 	div#header ul
 	{
 		float: left;
 		width: 425px;
+		padding: 10px 0;
 	}
 	
 	div#header ul li
