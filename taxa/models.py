@@ -1,7 +1,9 @@
 from django.db import models
 from flickrapi import FlickrAPI
 from django.core.cache import cache
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 class Kingdom(models.Model):
 	name = models.CharField(max_length=200, unique=True)
@@ -94,17 +96,11 @@ class Species(models.Model):
 		
 		fps = []
 		
-		for photo in flickr_photos:
-			info = flickr.people_getInfo(user_id=photo.attrib['owner'])
-			
-			# print info
-			
-			username = info.find('person').find('username').text
-			
+		for photo in flickr_photos:			
 			fps.append({\
-				'src' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_t.jpg',\
+				'src' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_s.jpg',\
 				'src_l' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_m.jpg',\
-				'url' : 'http://flickr.com/photos/' + unicode(username).encode('utf-8') + '/' + photo.attrib['id'] + '/',\
+				'url' : 'http://flickr.com/photos/' + photo.attrib['owner'] + '/' + photo.attrib['id'] + '/',\
 				'title' : photo.attrib['title']})
 			
 		return fps

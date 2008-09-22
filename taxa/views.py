@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from aquaticore.taxa.models import Family, Species, Genus
 from django.http import HttpResponseRedirect
 from django import forms
+from django.core.paginator import Paginator
 import datetime
 import re
 
@@ -15,7 +16,7 @@ def species_detail(request, species_name):
 	species_name = re.sub('[\+\_]', ' ', species_name)
 
 	species = Species.objects.get(name=species_name)
-	flickr_photos = species.get_flickr_photos(limit=5, first_large=True)
+	flickr_photos = species.get_flickr_photos(limit=7)
 	return render_to_response('taxa/species_detail.html', {'species' : species, 'flickr_photos' : flickr_photos}, context_instance=RequestContext(request))
 
 def family_detail(request, family_name):
@@ -28,6 +29,8 @@ def family_detail(request, family_name):
 	species_list = []
 	
 	for genus in genuses:
+	
+		
 		species = Species.objects.filter(genus=genus)
 	
 		for s in species:
@@ -36,6 +39,6 @@ def family_detail(request, family_name):
 				photo = photo[0]
 			species_list.append({'species' : s, 'photo' : photo})
 	
-	species_list = species_list[:20]
+	paginator = Paginator(species_list, 20)
 	
-	return render_to_response('taxa/family_detail.html', {'family' : family, 'species_list' : species_list}, context_instance=RequestContext(request))
+	return render_to_response('taxa/family_detail.html', {'family' : family, 'species_list' : paginator.object_list}, context_instance=RequestContext(request))

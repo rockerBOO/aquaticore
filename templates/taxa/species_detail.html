@@ -14,15 +14,16 @@
     </div>
     
     <div class="item">
-        <ul>
+        <h4>Taxa</h4>
+        <ul class="taxa_list">
             <li><a href="/taxa/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.name }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a></li>
-            <ul>
+            <ul class="taxa_list">
                 <li><a href="/taxa/phylum/{{ species.genus.family.order.fish_class.phylum.name }}">{{ species.genus.family.order.fish_class.phylum.name }}</a></li>
-                <ul>
+                <ul class="taxa_list">
                     <li><a href="/taxa/class/{{ species.genus.family.order.fish_class.name }}">{{ species.genus.family.order.fish_class.name }}</a></li>
-                    <ul>
+                    <ul class="taxa_list">
                         <li><a href="/taxa/order/{{ species.genus.family.order.name }}">{{ species.genus.family.order.name }}</a></li>
-                         <ul>
+                         <ul class="taxa_list">
                             <li><a href="/taxa/family/{{ species.genus.family.name }}">{{ species.genus.family.name }}</a></li>
                         </ul>
                     </ul>

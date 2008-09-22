@@ -285,49 +285,61 @@ div#right-wrapper div.options
 		background: #FCFFAF;
 	}
 
-div#right-wrapper div.item
-{
-	padding: 10px;
-	background: #EBFFFE;
-	border-right: 2px solid #D8F0F0;
-	border-bottom: 2px solid #D8F0F0;
-	border-left: 1px solid #DEF7F7;
-	margin-top: 20px;
-	-moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-}
-	div#right-wrapper div.item h3
+	div#right-wrapper div.item
 	{
-/*		font-siz: normal normal 13pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;*/
+		padding: 10px;
+		background: #EBFFFE;
+		border-right: 2px solid #D8F0F0;
+		border-bottom: 2px solid #D8F0F0;
+		border-left: 1px solid #DEF7F7;
+		margin-top: 20px;
+		-moz-border-radius: 10px;
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
 	}
+		div#right-wrapper div.item h3
+		{
+/*			font-siz: normal normal 13pt/1.4 Optima, "Lucida Grande", Helvetica, Verdana, sans-serif;*/
+		}
 		
-		div#right-wrapper div.item h3.lite
+			div#right-wrapper div.item h3.lite
+			{
+				color: #7DB3B0;
+			}
+	
+		div#right-wrapper div.item p
 		{
 			color: #7DB3B0;
 		}
 	
-	div#right-wrapper div.item p
-	{
-		color: #7DB3B0;
-	}
+		div#right-wrapper div.item p em
+		{
+			color: #9FC9C7;
+		}
 	
-	div#right-wrapper div.item p em
-	{
-		color: #9FC9C7;
-	}
+		div#right-wrapper div.item dl dt
+		{
+			color: #7DB3B0;
+			font-weight: bold;
+		}
 	
-	div#right-wrapper div.item dl dt
+		div#right-wrapper div.item dl dd
+		{
+			color: #9FC9C7;
+			margin-left: 10px;
+		}
+				
+	div#right_side
 	{
-		color: #7DB3B0;
-		font-weight: bold;
+		width: 20%;
+		float: right;
 	}
-	
-	div#right-wrapper div.item dl dd
-	{
-		color: #9FC9C7;
-		margin-left: 10px;
-	}
+		div#right_side div.box
+		{
+			background: #BADCE9;
+			margin: 10px;
+			padding: 20px;
+		}
 
 /**
  * FOOTER
@@ -380,18 +392,6 @@ div#error
     color: #DF9C9C;
 	border-bottom: 2px solid #FFF5F5;
 }
-
-div#right_side
-{
-	width: 20%;
-	float: right;
-}
-	div#right_side div.box
-	{
-		background: #BADCE9;
-		margin: 10px;
-		padding: 20px;
-	}
 
 div#left_side
 {
