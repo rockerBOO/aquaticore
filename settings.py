@@ -4,7 +4,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('rockerboo', 'dave@rockerboo.net'),
+    ('rockerboo', 'rockerboo@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASE_ENGINE    = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME      = 'aquaticore'             # Or path to database file if using sqlite3.
 DATABASE_USER      = 'root'             # Not used with sqlite3.
-DATABASE_PASSWORD  = 'firefly12!'         # Not used with sqlite3.
+DATABASE_PASSWORD  = ''         # Not used with sqlite3.
 DATABASE_HOST      = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT      = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -35,20 +35,20 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/web/aquaticore/media'
+MEDIA_ROOT = '/webroot/aquaticore/aquaticore.com/assets/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://home.rockerboo.net:1337/media'
+MEDIA_URL = 'http://aquaticore.com/assets/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin_assets/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '34r3mvFDGFDGD-h$9f!-%GFDFDpFDyt^g&g&^gy#*(h(@hj(*uh(@GDFGDFGHFGH!6aat8DFGDh343-@*03(l#^4ek3@'
+SECRET_KEY = '34r3mvuh(@GDFGDFGHFGH!6aat8DFGDh343-@*03(l#^4ek3@'
 
 # Loading template context processors for setting request variables in the views
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
@@ -75,18 +75,19 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.gzip.GZipMiddleware',
 )
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
-CACHE_MIDDLEWARE_SECONDS = 86700
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# # SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+# CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+# CACHE_MIDDLEWARE_SECONDS = 86700
 
 ROOT_URLCONF = 'aquaticore.urls'
 
 TEMPLATE_DIRS = (
-    '/web/aquaticore/templates/'
+    '/webroot/aquaticore/templates/'
 )
 
 ALLOWED_INCLUDE_ROOTS = (
-	'/web/aquaticore'
+	'/webroot/aquaticore'
 )
 
 # 12ac22376b8bdd0127b4d78eb5b8eae9
@@ -99,19 +100,21 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.humanize',
     'django.contrib.comments',
-    'aquaticore.blogs',
+    'aquaticore.accounts',
     'aquaticore.articles',
+    'aquaticore.aquariums',
+    'aquaticore.authors',
+    'aquaticore.blogs',
+    'aquaticore.common_names',
+    'aquaticore.databases',
+    'aquaticore.diets',
+	'aquaticore.distributions',
 	'aquaticore.fish',
-	'aquaticore.aquariums',
-	'aquaticore.databases',
-	'aquaticore.common_names',
+	'aquaticore.feeds',
+	'aquaticore.geography',
+	'aquaticore.languages',
 	'aquaticore.references',
 	'aquaticore.specialists',
-	'aquaticore.diets',
-	'aquaticore.distributions',
-	'aquaticore.languages',
-	'aquaticore.authors',
-	'aquaticore.geography',
-	'aquaticore.taxa',
+    'aquaticore.taxa',
     'django.contrib.flatpages'
 )

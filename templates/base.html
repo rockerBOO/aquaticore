@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>aquaticore: {% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %} - aquaticore</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="description" content="" />
@@ -12,19 +12,19 @@
 
     <meta name="revisit-after" content="3 days" />
 
-    <link rel="stylesheet" href="http://aquaticore.com/assets/css/global.css" type="text/css" />
-	<script type="text/javascript" charset="UTF-8" src="http://aquaticore.com/assets/js/jquery.js"></script>
+    <link rel="stylesheet" href="http://aquaticore.com/global.css" type="text/css" />
+	<script type="text/javascript" charset="UTF-8" src="http://aquaticore.com/jquery.js"></script>
 	{% block extra_head %}{% endblock %}
 </head>
 <body>
     <div id="header">
         <!-- <h1><a href="/">aquaticore</a></h1>-->
-        <a href="/"><img src="http://aquaticore.com/assets/img/logo.png" id="logo" /></a>
+        <a href="/"><img src="http://aquaticore.com/logo.png" id="logo" /></a>
         <ul>
-            <li><a href="/blogs">entries</a></li>
-            <li><a href="/articles">articles</a></li>
+            <!-- <li><a href="/blogs">entries</a></li> -->
+            <!-- <li><a href="/articles">articles</a></li> -->
+            <li><a href="/aquariums">aquariums</a></li>
             <li><a href="/fish">fish</a></li>
-            <li><a href="/plants">plants</a></li> 
             {% if user.is_authenticated %}
             <li><a href="/accounts/profile/">settings</a></li>
             {% else %}

@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block title %}{{ order.title }}{% endblock %}
+{% block title %}{{ aquarium.title }} - aquarium {% endblock %}
 
 {% block content %}
 <h2>{{ aquarium.title }}</h2>
+<p class="light" style="margin-top: -30px;"><a href="/aquariums">aquariums</a></p>
 {{ aquarium.body }}
 <hr />
 {% ssi /web/aquaticore/templates/fish/fish_blocks.html parsed %}
+{% endblock %}
+
+{% block sidebar %}
+	<div class="item">
+		<h3></h3>
+		<p></p>
+	</div>
 {% endblock %}

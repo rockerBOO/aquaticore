@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-{% load comments %}
 
-{% block title %}plants{% endblock %}
+{% block title %}aquariums{% endblock %}
 
 {% block content %}
-	<h2>Plants</h2>
-	<p>Showing some plants info here</p>
+	<h2>Aquariums</h2>
+
+	{% for aquarium in aquariums_list %}
+	    <div><a href="/aquarium/{{ aquarium.id }}">{{ aquarium.title }}</a> <span class="light" style="color: #A9CECB;">&nbsp;&nbsp;{{ aquarium.created|date:"M d, Y" }}</span> <a href="">{{ aquarium.user.id }}</a></div>
+	{% endfor %}
 {% endblock %}
 
 {% block sidebar %}
 	<div class="item">
-		<h3>Something here</h3>
-		<p>Heyoo</p>
+		<h3></h3>
+		<p></p>
 	</div>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django.contrib import admin
-from flickrapi import *
+# from flickrapi import *
 from django.core.cache import cache
 from aquaticore.articles.models import Article
 from aquaticore.taxa.models import Species
@@ -13,19 +13,19 @@ import urllib
 from django.core.cache import cache
 
 class Fish(models.Model):
-	body = models.TextField(null=True, blank=True)
-	species = models.ForeignKey('taxa.Species')
-	origin = models.ManyToManyField('origins.Origin', null=True, blank=True)
-	diet = models.ManyToManyField('diets.Diet', null=True, blank=True)
-	cn = models.ManyToManyField('common_names.CommonName', null=True, blank=True)
-	article = models.ManyToManyField('articles.Article', null=True, blank=True)
+	body     = models.TextField(null=True, blank=True)
+	species  = models.ForeignKey('taxa.Species')
+	origin   = models.ManyToManyField('origins.Origin', null=True, blank=True)
+	diet     = models.ManyToManyField('diets.Diet', null=True, blank=True)
+	cn       = models.ManyToManyField('common_names.CommonName', null=True, blank=True)
+	article  = models.ManyToManyField('articles.Article', null=True, blank=True)
 	min_size = models.FloatField(null=True, blank=True)
 	max_size = models.FloatField(null=True, blank=True)
-	min_ph = models.FloatField(null=True, blank=True)
-	max_ph = models.FloatField(null=True, blank=True)
+	min_ph   = models.FloatField(null=True, blank=True)
+	max_ph   = models.FloatField(null=True, blank=True)
 	min_temp = models.FloatField(null=True, blank=True)
 	max_temp = models.FloatField(null=True, blank=True)
-	created = models.DateTimeField('date published')
+	created  = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 
 	def __unicode__(self):

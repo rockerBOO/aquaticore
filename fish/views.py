@@ -12,6 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
 	fish_list = Fish.objects.all().order_by('?')[:1]
+	fishes    = {}
 	
 	for fish in fish_list:
 		photos = fish.get_flickr_photos(1)

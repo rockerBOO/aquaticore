@@ -9,14 +9,14 @@ import datetime
 import re
 
 def index(request):
-	return render_to_response('taxa/index.html', {'species_list' : species_list}, context_instance=RequestContext(request))
+	return render_to_response('taxa/index.html', {}, context_instance=RequestContext(request))
 
 def species_detail(request, species_name):	
 
 	species_name = re.sub('[\+\_]', ' ', species_name)
 
 	species = Species.objects.get(name=species_name)
-	flickr_photos = species.get_flickr_photos(limit=7)
+	flickr_photos = species.get_flickr_photos(limit=4)
 	return render_to_response('taxa/species_detail.html', {'species' : species, 'flickr_photos' : flickr_photos}, context_instance=RequestContext(request))
 
 def family_detail(request, family_name):

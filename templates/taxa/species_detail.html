@@ -5,6 +5,15 @@
 
 {% block content %}
 <h2>{{ genus.name }} {{ species.name }}</h2>
+{% for photo in flickr_photos %}
+    {% if forloop.first %}
+        <div class="badge"><img src="http://www.flickr.com/favicon.ico" type="image/vnd.microsoft.icon" class="flickr_icon" /></div>
+        <a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_500 }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" /></a><br />
+        
+    {% endif %}
+{% endfor %}
+
+<a href="http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&amp;speciesname=discus&amp;lang=English">Fishbase</a>
 {% endblock %}
 
 {% block sidebar %}	
@@ -34,8 +43,10 @@
     
     <div class="item">
         {% for photo in flickr_photos %}
-    		{% if forloop.first %}<div class="large">{% endif %}<a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_l }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% if forloop.first %}</div>{% endif %}
+            {% if forloop.first %}{% else %}
+            <div class="badge"><img src="http://www.flickr.com/favicon.ico" type="image/vnd.microsoft.icon" class="flickr_icon" /></div>
+    		<a href="{{ photo.url }}"><img src="{{ photo.src_l }}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>{% endif %}
     	{% endfor %}
-    	<br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em>
+        <!-- <br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em> -->
     </div>
 {% endblock %}
