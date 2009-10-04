@@ -1,0 +1,6 @@
+registertooltip({
+    icon: "inv_jewelry_ring_25",
+    id: "{{ species.id }}",
+    tooltip: '<table><tr><td><strong style="line-height: 2.3;">{{ species.name }}</strong>{% for photo in photos %}<div class="badge"><img src="http://www.flickr.com/favicon.ico" type="image/vnd.microsoft.icon" class="flickr_icon" /></div><img src="{{ photo.src_l }}" /><br />{% endfor %}</td></tr></table>',
+    type: "item"
+});
