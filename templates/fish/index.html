@@ -5,11 +5,12 @@
 
 {% block content %}
 	<h2>Fish</h2>
-	<h3><a href="/fish/freshwater">Freshwater</a></h3>
+	<h3><a href="/fish/list?water_type=fresh">Freshwater</a></h3>
 	<img src="{{ fish.photo.src }}" />
-	<p><a href="/fish/top10">Top 10</a></p>
+	{{ fish_single.species.name }}
+	<p><a href="/fish/list?sort=views&amp;limit=10">Top 10</a></p>
 	
-	<p><a href="/fish/newest">Newest</a></p>
+	<p><a href="/fish/list">Newest</a></p>
 {% endblock %}
 
 {% block sidebar %}

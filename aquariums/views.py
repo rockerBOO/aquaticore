@@ -15,7 +15,7 @@ def index(request):
 	
 def detail(request, aquarium_id):
 	aquarium = get_object_or_404(Aquarium, pk=aquarium_id)
-	fish_tmp_list = aquarium.fish.all()
+	fish_tmp_list = aquarium.species.all()
 	
 	fish_list = []
 	

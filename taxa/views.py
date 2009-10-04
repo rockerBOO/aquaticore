@@ -9,15 +9,21 @@ import datetime
 import re
 
 def index(request):
-	return render_to_response('taxa/index.html', {}, context_instance=RequestContext(request))
+	new_species = Species.objects.all().order_by('-id')[:20]
+	return render_to_response('taxa/index.html', {'new_species': new_species}, context_instance=RequestContext(request))
 
 def species_detail(request, species_name):	
+
+    # if ("form_action" in request.POST and "species_name" in request.POST and request.POST["form_action"] == 'add'):
+        # x = Species(name=request.POST["species_name"])
+        
 
 	species_name = re.sub('[\+\_]', ' ', species_name)
 
 	species = Species.objects.get(name=species_name)
 	flickr_photos = species.get_flickr_photos(limit=4)
-	return render_to_response('taxa/species_detail.html', {'species' : species, 'flickr_photos' : flickr_photos}, context_instance=RequestContext(request))
+	fishbase_info = species.get_fishbase_info()
+	return render_to_response('taxa/species_detail.html', {'species' : species, 'flickr_photos' : flickr_photos, 'fishbase_info': fishbase_info}, context_instance=RequestContext(request))
 
 def family_detail(request, family_name):
 

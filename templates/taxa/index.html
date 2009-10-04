@@ -3,7 +3,12 @@
 {% block title %}Hi{% endblock %}
 
 {% block content %}
-Hello
+<h2>New Species</h2>
+<ul class="light-list">
+{% for species in new_species %}
+    <li><a href="/taxa/species/{{ species.name }}">{{ species.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ species.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
 {% endblock %}
 
 {% block sidebar %}	

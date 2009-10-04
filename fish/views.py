@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def index(request):
 	fish_list = Fish.objects.all().order_by('?')[:1]
 	fishes    = {}
+	fish_single = {}
 	
 	for fish in fish_list:
 		photos = fish.get_flickr_photos(1)
@@ -21,9 +22,25 @@ def index(request):
 			continue
 			
 		fishes = {'fish' : fish, 'photos' : photos[0]}
+		fish_single = fish
 		break
 		
-	return render_to_response('fish/index.html', {'fish' : fishes}, context_instance=RequestContext(request))
+	return render_to_response('fish/index.html', {'fish' : fishes, 'fish_single': fish_single}, context_instance=RequestContext(request))
+
+def list(request):
+    # Lets setup some defaults
+    sort = '-created'
+    
+    
+    if request.GET["sort"] == 'views':
+        # Nothing to do yet
+        
+    if request.GET[""] == "limit"
+    
+    Fish.objects.all().order_by('-created')[:40]
+    
+    
+    return render_to_response('fish/list.html', {}, context_instance=RequestContext(request))
 
 def top10(request):	
 	fish_tmp_list = Fish.objects.all().order_by('-created')[:40]

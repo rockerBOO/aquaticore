@@ -1,5 +1,5 @@
 from django.db import models
-from aquaticore.fish.models import Fish
+from aquaticore.taxa.models import Species
 from django.contrib.auth.models import User
 from django.contrib import admin
 
@@ -8,7 +8,7 @@ class Aquarium(models.Model):
 	title = models.CharField(max_length=200)
 	user = models.ManyToManyField(User, null=False, blank=False)
 	body = models.TextField()
-	fish = models.ManyToManyField(Fish, null=True, blank=True)
+	species = models.ManyToManyField(Species, null=True, blank=True)
 	created = models.DateTimeField('date published')
 	modified = models.DateTimeField(auto_now=True, default='0000-00-00 00:00:00')
 

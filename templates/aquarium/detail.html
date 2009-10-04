@@ -5,9 +5,18 @@
 
 {% block content %}
 <h2>{{ aquarium.title }}</h2>
-<p class="light" style="margin-top: -30px;"><a href="/aquariums">aquariums</a></p>
+<p style="margin-top: -30px;"><a href="/aquariums">aquariums</a></p>
 {{ aquarium.body }}
+
 <hr />
+
+<h3>Fish</h3>
+<ul class="light-list">
+{% for fish in fish_list %}
+    <li><a href="/taxa/species/{{ fish.fish.genus.name }}{{ fish.fish.name }}/">{{ fish.fish.genus.name }} {{ fish.fish.name }}</a> <span style="float: right;">4</span></li>
+{% endfor %}
+</ul>
+
 {% ssi /web/aquaticore/templates/fish/fish_blocks.html parsed %}
 {% endblock %}
 

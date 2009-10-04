@@ -10,9 +10,9 @@
     Installing index for taxa.Infraspecies model
 */
 
-$aquaticore = new mysqli('localhost', 'root', 'firefly12!', 'aquaticore');
+$aquaticore = new mysqli('localhost', 'root', '', 'aquaticore');
 
-$mysql = new mysqli('localhost', 'root', 'firefly12!', 'CoL2008AC');
+$mysql = new mysqli('localhost', 'root', '', 'col');
 if ($kingdom = $mysql->query('SELECT name, record_id, is_accepted_name FROM taxa WHERE taxon = "Kingdom" AND name = "Animalia"'))
 {
     while ($kingdom_row = $kingdom->fetch_object())

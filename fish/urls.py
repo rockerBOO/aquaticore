@@ -6,6 +6,7 @@ urlpatterns = patterns('aquaticore.fish.views',
 	(r'^newest/?$',                      'newest'),
 	(r'^(?P<fish_id>\d+)/?',          'detail'),
 	('add/',                          'add'),
+	('list',                          'list'),
 	
 	(r'^diet/(?P<diet_id>\d+)/?$',    'diet_detail'),
 	(r'^diet/(?P<diet_id>\d+)/delete/?$',    'diet_delete'),

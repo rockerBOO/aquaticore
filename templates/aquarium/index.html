@@ -5,9 +5,11 @@
 {% block content %}
 	<h2>Aquariums</h2>
 
+    <ul class="light-list">
 	{% for aquarium in aquariums_list %}
-	    <div><a href="/aquarium/{{ aquarium.id }}">{{ aquarium.title }}</a> <span class="light" style="color: #A9CECB;">&nbsp;&nbsp;{{ aquarium.created|date:"M d, Y" }}</span> <a href="">{{ aquarium.user.id }}</a></div>
+	    <li><a href="/aquarium/{{ aquarium.id }}">{{ aquarium.title }}</a> <span class="light" style="float: right;">{{ aquarium.created|date:"M d, Y" }}</span></li>
 	{% endfor %}
+    </ul>
 {% endblock %}
 
 {% block sidebar %}

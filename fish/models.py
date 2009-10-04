@@ -65,48 +65,6 @@ class Fish(models.Model):
 				'title' : photo.attrib['title']})
 			
 		return fps
-		
-	def get_fishbase_info(self):
-		
-		key = 'get_fishbase_info_' + str(self.id) + '_feed'
-		
-		# fishbaseXml = "http://fishbase.sinica.edu.tw/webservice/Species/SpeciesSummary.asp?Genus=" + self.species.genus.title + "&Species=" + self.species.title + ""
-		# feed = urllib.urlopen(fishbaseXml)
-		# 	
-		# # return feed
-		# et = ElementTree()
-		# tree = et.parse(feed)
-		# value = dict((c, p) for p in tree.getiterator() for c in p)
-		# 
-		
-		# feed = cache.get(key)
-		feed = False
-		
-		if feed == False or feed == '' or feed == None:
-			fishbaseXml = "http://fishbase.sinica.edu.tw/webservice/Species/SpeciesSummary.asp?Genus=" + self.species.genus.title + "&Species=" + self.species.title + ""
-			
-			try:
-				feed = urllib.urlopen(fishbaseXml)
-			except IOError:
-				return {'error' : 'Sorry, seems fishbase is down at the moment'}
-			
-			# cache.set(key, feed, 3600)			
-		
-		for line in feed.read():
-			if line.find('<html>'):
-				return {'error' : 'Sorry, seems fishbase is down at the moment. There has been an error in the xml feed. '}
-			
-		# return feed
-		et = ElementTree()
-		
-		# try:
-		tree = et.parse(feed)
-		# except ExpatError:
-		# 	return {'error' : 'Sorry, seems fishbase is down at the moment'}
-		
-		value = dict((c, p) for p in tree.getiterator() for c in p)
-		
-		return value
 	
 	def __getstate__(self):
 		return

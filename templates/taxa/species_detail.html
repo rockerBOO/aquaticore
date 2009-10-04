@@ -14,11 +14,18 @@
 {% endfor %}
 
 <a href="http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&amp;speciesname=discus&amp;lang=English">Fishbase</a>
+<br />
+{{ fishbase_info }}
 {% endblock %}
 
 {% block sidebar %}	
     <div class="options">
         <a href="/fish/{{ fish.id }}/add_to_aquarium">Add to aquarium</a>
+        <form method="post" action="">
+            <input type="hidden" name="form_action" value="add_species" />
+            <input type="text" name="species_name" value="" />
+            <input type="submit" value="Add" />
+        </form>
         <div class="clear"><span></span></div>
     </div>
     
