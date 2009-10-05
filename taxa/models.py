@@ -94,10 +94,28 @@ class Species(models.Model):
 		flickr.cache = cache
 		
 		keyword = "\"" + self.name + "\""
-		photos  = flickr.photos_search(text=keyword, sort="interestingness-desc", per_page=limit, page=page_num)
+		
+		photos  = flickr.photos_search(text=keyword, sort="interestingness-desc", per_page=limit, page=page_num, license='1,2,3,4,5,6', extras='owner_name,license')
 		
 		if photos.attrib['stat'] == 'fail':
 			return []
+		
+			# <licenses>
+			# 	<license id="4" name="Attribution License"
+			# 		url="http://creativecommons.org/licenses/by/2.0/" /> 
+			# 	<license id="6" name="Attribution-NoDerivs License"
+			# 		url="http://creativecommons.org/licenses/by-nd/2.0/" /> 
+			# 	<license id="3" name="Attribution-NonCommercial-NoDerivs License"
+			# 		url="http://creativecommons.org/licenses/by-nc-nd/2.0/" /> 
+			# 	<license id="2" name="Attribution-NonCommercial License"
+			# 		url="http://creativecommons.org/licenses/by-nc/2.0/" /> 
+			# 	<license id="1" name="Attribution-NonCommercial-ShareAlike License"
+			# 		url="http://creativecommons.org/licenses/by-nc-sa/2.0/" /> 
+			# 	<license id="5" name="Attribution-ShareAlike License"
+			# 		url="http://creativecommons.org/licenses/by-sa/2.0/" /> 
+			# 	<license id="7" name="No known copyright restrictions"
+			# 		url="http://flickr.com/commons/usage/" />
+			# </licenses>
 		
 		flickr_photos = photos.find('photos').findall('photo')
 		
@@ -108,7 +126,9 @@ class Species(models.Model):
 				'src' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_s.jpg',\
 				'src_l' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '_m.jpg',
 				'src_500' : 'http://farm' + photo.attrib['farm'] + '.static.flickr.com/' + photo.attrib['server'] + '/' + photo.attrib['id'] + '_' + photo.attrib['secret'] + '.jpg',\
-				'url' : 'http://flickr.com/photos/' + photo.attrib['owner'] + '/' + photo.attrib['id'] + '/',\
+				'url' : 'http://flickr.com/photos/' + photo.attrib['ownername'] + '/' + photo.attrib['id'] + '/',\
+				'ownername': photo.attrib['ownername'],\
+				'license': photo.attrib['license'],\
 				'title' : photo.attrib['title']})
 		
 		return fps
