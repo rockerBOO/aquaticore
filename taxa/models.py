@@ -1,6 +1,9 @@
 from django.db import models
 from flickrapi import FlickrAPI
+import gdata.youtube
+import gdata.youtube.service
 from django.core.cache import cache
+import simplejson as json
 from BeautifulSoup import BeautifulStoneSoup
 from elementtree.ElementTree import ElementTree
 import urllib
@@ -109,6 +112,34 @@ class Species(models.Model):
 				'title' : photo.attrib['title']})
 		
 		return fps
+	
+	def get_youtube_videos(self, limit=10):
+		# yt_service = gdata.youtube.service.YouTubeService()
+		# 		
+		# yt_service.developer_key = 'AI39si6EFjf7JOPQa6_Ml32u74-IramXpeYvJ9Yr2z4ULX6nlQIb-UTB6fC6VH8g1SGDGiv6ogzxr4aZYCdtvvHBAOddPn4_-Q'
+		# 		
+		# query = gdata.youtube.service.YouTubeVideoQuery()
+		# query.vq = self.name
+		# query.orderby = 'viewCount'
+		# query.racy = 'exclude'
+		# query.alt  = 'json'
+		# feed = yt_service.YouTubeQuery(query)
+		# 		
+		# 		
+		# # 
+		
+		url = 'http://gdata.youtube.com/feeds/videos?start-index=1&max-results=' + str(limit) + '&vq=' + self.name + '&racy=exclude&orderby=viewCount&alt=json'
+		
+		# return url
+		
+		feed = urllib.urlopen(url)		
+		
+		try:
+			data = json.load(feed)
+		except ValueError:
+			return {}
+		
+		return data
 	
 	def get_fishbase_info(self):
 		

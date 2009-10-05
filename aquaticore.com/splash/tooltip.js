@@ -3,7 +3,7 @@
 // var URL_REGEX =  URL_BASE + '/(i|s|a|c|q|is)/([A-Za-z0-9-]+).*'
 
 var URL_BASE = '^http://aquaticore\\.com:31337'
-var URL_REGEX =  URL_BASE + '/taxa/(species|genus)/([A-Za-z0-9 -\+]+).*'
+var URL_REGEX =  URL_BASE + '/taxa/(species|genus|family)/([A-Za-z0-9 -\+]+).*'
 
 // http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&speciesname=discus&lang=English
 // http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&speciesname=discus&lang=English
@@ -79,7 +79,25 @@ var ttlib = {
 	getValid: function(url) {
 	    if (url.href.match(URL_REGEX)) {
 			var match = url.href.match(URL_REGEX);
-			return "http://aquaticore.com:31337/tooltip/ts:" + match[2];
+			
+			if (match[1] == 'species' || match[1] == 'genus')
+			{
+				return "http://aquaticore.com:31337/tooltip/ts:" + match[2];
+			}
+			
+			if (match[1] == 'family')
+			{
+				// return "http://aquaticore.com:31337/tooltip/tf:" + match[2];
+			}
+		}
+		else
+		{
+			// if (url.href.match(URL_BASE))
+			// {
+			//  	match = url.href.match(URL_BASE);
+			// 	alert(match);
+			// 	
+			// }
 		}
 		
 		// alert(url + ' ' + FB_URL_REGEX);
@@ -87,11 +105,11 @@ var ttlib = {
 		// match = url.href.match(FB_URL_REGEX)
 		// alert(match);
 		
-		if (url.href.match(FB_URL_REGEX)) {
-			var match = url.href.match(FB_URL_REGEX);
-			alert(match);
-			return "http://aquaticore.com:31337/tooltip/ts:" + match[2];
-		}
+		// if (url.href.match(FB_URL_REGEX)) {
+		// 	var match = url.href.match(FB_URL_REGEX);
+		// 	alert(match);
+		// 	return "http://aquaticore.com:31337/tooltip/ts:" + match[2];
+		// }
 		return false;
 	},
 	

@@ -4,8 +4,9 @@ body,html
 {
 /*	background: #F0FFFE url('http://images2.layoutsparks.com/1/128481/dinosaur-default-icons-layout.gif');*/
 /*	background: url('http://img17.imagehosting.gr/out.php/i906503_funky1920x1080.jpg') fixed;*/
-	background: url('http://simplyfree.site90.net/images/mikro_plant_9m5_wallpaper-HD.jpg') fixed;
+/*	background: url('http://simplyfree.site90.net/images/mikro_plant_9m5_wallpaper-HD.jpg') fixed;*/
 /*	background: url('http://a3.twimg.com/profile_background_images/4134351/bg2.jpg');*/
+	background: #F0FFFE;
 	padding: 0;
 	border: 0;
 	margin: 0;	
@@ -28,11 +29,6 @@ a:hover
 em a, em a:link, em a:active, em a:visited
 {
 	color: #AAD1D0;
-}
-
-* {
-margin:0;
-padding:0;
 }
 
 img
@@ -153,8 +149,20 @@ input.title
 	.light-list li {
 		border-top: 1px solid #F0FFFE;
 		border-bottom: 1px solid #DEF0EF;
-		line-height:22px;
+		padding-top: 4px;
 	}
+
+.data-table {
+	background: #D6F3F2;
+}
+	.data-table td {
+		background: #F0FFFE;
+	}
+	
+	.data-table tr td:first-child {
+		color: #A9CECB;
+		background: #E8FAF9;
+	} 
 
 input[type='submit'] {
 	background: #7DD1CE;
@@ -353,6 +361,10 @@ div#right-wrapper div.options
 			color: #9FC9C7;
 			margin-left: 10px;
 		}
+	
+	.taxa_list {
+		margin-left: 8px;
+	}
 				
 	div#right_side
 	{

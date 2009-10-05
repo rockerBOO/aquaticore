@@ -8,10 +8,11 @@
 {% for photo in flickr_photos %}
     {% if forloop.first %}
         <div class="badge"><img src="http://www.flickr.com/favicon.ico" type="image/vnd.microsoft.icon" class="flickr_icon" /></div>
-        <a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_500 }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" /></a><br />
-        
+        <a href="{{ photo.url }}"><img src="{% if forloop.first %}{{ photo.src_500 }}{% else %}{{ photo.src }}{% endif %}" alt="{{ photo.title }}" /></a><br />    
     {% endif %}
 {% endfor %}
+
+{{ youtube_videos }}
 
 <a href="http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&amp;speciesname=discus&amp;lang=English">Fishbase</a>
 <br />
@@ -30,17 +31,17 @@
     </div>
     
     <div class="item">
-        <h4>Taxa</h4>
+        <h4>Taxonomy</h4>
         <ul class="taxa_list">
-            <li><a href="/taxa/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.name }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a></li>
+            <li><a href="/taxa/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.name }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a> <span class="light">kingdom</span></li>
             <ul class="taxa_list">
-                <li><a href="/taxa/phylum/{{ species.genus.family.order.fish_class.phylum.name }}">{{ species.genus.family.order.fish_class.phylum.name }}</a></li>
+                <li><a href="/taxa/phylum/{{ species.genus.family.order.fish_class.phylum.name }}">{{ species.genus.family.order.fish_class.phylum.name }}</a> <span class="light">phylum</span></li>
                 <ul class="taxa_list">
-                    <li><a href="/taxa/class/{{ species.genus.family.order.fish_class.name }}">{{ species.genus.family.order.fish_class.name }}</a></li>
+                    <li><a href="/taxa/class/{{ species.genus.family.order.fish_class.name }}">{{ species.genus.family.order.fish_class.name }}</a> <span class="light">class</span></li>
                     <ul class="taxa_list">
-                        <li><a href="/taxa/order/{{ species.genus.family.order.name }}">{{ species.genus.family.order.name }}</a></li>
+                        <li><a href="/taxa/order/{{ species.genus.family.order.name }}">{{ species.genus.family.order.name }}</a> <span class="light">order</span></li>
                          <ul class="taxa_list">
-                            <li><a href="/taxa/family/{{ species.genus.family.name }}">{{ species.genus.family.name }}</a></li>
+                            <li><a href="/taxa/family/{{ species.genus.family.name }}">{{ species.genus.family.name }}</a> <span class="light">family</span></li>
                         </ul>
                     </ul>
                 </ul>

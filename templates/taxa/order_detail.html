@@ -1,24 +1,29 @@
 {% extends "base.html" %}
 {% load comments %}
 
-{% block title %}{{ species.name }}{% endblock %}
+{% block title %}{{ order.name }}{% endblock %}
 
 {% block content %}
-<h2>{{ family.name }}</h2>
-{% ssi /web/aquaticore/templates/taxa/taxa_list.html parsed %}
+<h2>{{ order.name }}</h2>
+
+<h3>Family</h3>
+<ul class="light-list">
+{% for family in families.object_list %}
+    <li><a href="http://aquaticore.com:31337/taxa/family/{{ family.name }}">{{ family.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ family.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+
 {% endblock %}
 
 {% block sidebar %}
     <div class="item">
+        <h3>Taxonomy</h3>
         <ul class="taxa_list">
-            <li><a href="/taxa/kingdom/{{ family.order.fish_class.phylum.kingdom.name }}">{{ family.order.fish_class.phylum.kingdom.name }}</a></li>
+            <li><a href="/taxa/kingdom/{{ order.fish_class.phylum.kingdom.name }}">{{ order.fish_class.phylum.kingdom.name }}</a> <span class="light">kingdom</span></li>
             <ul class="taxa_list">
-                <li><a href="/taxa/phylum/{{ family.order.fish_class.phylum.name }}">{{ family.order.fish_class.phylum.name }}</a></li>
+                <li><a href="/taxa/phylum/{{ order.fish_class.phylum.name }}">{{ order.fish_class.phylum.name }}</a> <span class="light">phylum</span></li>
                 <ul class="taxa_list">
-                    <li><a href="/taxa/class/{{ family.order.fish_class.name }}">{{ family.order.fish_class.name }}</a></li>
-                    <ul class="taxa_list">
-                        <li><a href="/taxa/order/{{ family.order.name }}">{{ family.order.name }}</a></li>
-                    </ul>
+                    <li><a href="/taxa/class/{{ order.fish_class.name }}">{{ order.fish_class.name }}</a> <span class="light">class</span></li>
                 </ul>
             </ul>
         </ul>

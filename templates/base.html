@@ -21,7 +21,7 @@
 <body>
     <div id="header">
         <!-- <h1><a href="/">aquaticore</a></h1>-->
-        <a href="/"><img src="http://aquaticore.com/logo.png" id="logo" /></a>
+        <a href="/"><img src="http://aquaticore.com/logo.png" id="logo" alt="aquaticore" /></a>
         <ul>
             <!-- <li><a href="/blogs">entries</a></li> -->
             <!-- <li><a href="/articles">articles</a></li> -->
@@ -34,6 +34,9 @@
             <li><a href="/accounts/login/">login</a></li>
             {% endif %}
         </ul>
+        <form method="post" action="/taxa/species/">
+            <input type="text" name="q" value="{% if search_query %}{{ search_query }}{% else %}Search (species){% endif %}" onclick="if (this.value == 'Search (species)') { this.value = ''; }"  />
+        </form>
     </div>
     <div id="aquaticore_wrapper">
         <div id="body-wrapper">
@@ -49,7 +52,7 @@
         </div>
         <div id="footer">
 			<ul>
-			    <li>&copy; 2008 aquaticore<li>
+			    <li>&copy; 2008 aquaticore</li>
 			    <li><a href="/about">About Us</a></li>
 			    <li><a href="/contact">Contact</a></li>
 			    <li><a href="/help">Help</a></li>
