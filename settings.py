@@ -87,7 +87,8 @@ TEMPLATE_DIRS = (
 )
 
 ALLOWED_INCLUDE_ROOTS = (
-	'/webroot/aquaticore'
+	# '/webroot/aquaticore'
+	'/Users/rockerboo/Sites/aquaticore/trunk'
 )
 
 # 12ac22376b8bdd0127b4d78eb5b8eae9
