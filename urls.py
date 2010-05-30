@@ -30,5 +30,5 @@ urlpatterns = patterns('',
 	(r'^aquarium/',          include('aquaticore.aquariums.urls')),
     # (r'^privacy/',           ),
     
-    (r'', include('django.contrib.flatpages.urls')),
+    (r'^$', 'views.index'),
 )
