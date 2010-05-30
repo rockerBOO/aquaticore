@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}aquariums{% endblock %}
+
+{% block content %}
+	<h2>Aquariums</h2>
+
+    <ul class="light-list">
+	{% for aquarium in aquariums_list %}
+	    <li><a href="/aquarium/{{ aquarium.id }}">{{ aquarium.title }}</a> <span class="light" style="float: right;">{{ aquarium.created|date:"M d, Y" }}</span></li>
+	{% endfor %}
+    </ul>
+{% endblock %}
+
+{% block sidebar %}
+	<div class="item">
+		<h3></h3>
+		<p></p>
+	</div>
+{% endblock %}

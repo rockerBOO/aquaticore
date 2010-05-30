@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ article.title }}</h2>
+<em>{{ article.created|date:"F j, Y" }} <a href="/articles/{{ article.id }}/delete/">Delete</a></em>
+{{ article.body|linebreaks }}
+{% endblock %}

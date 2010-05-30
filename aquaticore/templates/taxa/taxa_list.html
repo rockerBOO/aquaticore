@@ -1,0 +1,11 @@
+{% if species.object_list %}
+    {% for species in species.object_list %}
+        <div style="float: left; width: 75px;"><a href="/taxa/species/{{ species.species.name }}"><img src="{{ species.photo.src }}" /></a></div>
+        <h3 style="margin-left: 85px;"><a href="/taxa/species/{{ species.species.name }}">{{ species.species.name }}</a></h3>
+        <div class="clear"><span><span></div>
+        <hr />
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No species are available.</p>
+{% endif %}

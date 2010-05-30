@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ origin.title }}{% endblock %}
+
+{% block content %}
+	<em><a href="/fish/family/{{ genus.family.id }}">{{ genus.family.title }}</a> <a href="/fish/order/{{ genus.family.order.id }}">{{ genus.family.order.title }}</a> <a href="/fish/class/{{ genus.family.order.fish_class.id }}">{{ genus.family.order.fish_class.title }}</a> | {{ genus.created|timesince }} ago</em>
+<h2>{{ genus.title }}</h2>
+    {% ssi /web/aquaticore/templates/fish/fish_list.html parsed %}
+{% endblock %}

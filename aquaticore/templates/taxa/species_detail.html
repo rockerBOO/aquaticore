@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ species.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ genus.name }} {{ species.name }}</h2>
+<p>Hopefully getting more info here, from fishbase, or other</p>
+
+
+{{ youtube_videos }}
+
+<a href="http://www.fishbase.org/Summary/speciesSummary.php?genusname=Symphysodon&amp;speciesname=discus&amp;lang=English">Fishbase</a>
+<br />
+{{ fishbase_info }}
+
+<hr />
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sapien mi, pellentesque nec consequat non, dictum eget nisl. Duis eleifend tortor risus, quis adipiscing magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris gravida vehicula tempus. Phasellus sed lectus leo, sed consequat urna. Fusce vitae nisl nulla, in semper lorem. Duis nec turpis eget mauris mollis commodo non vel nunc. Vivamus pellentesque, felis eu facilisis dapibus, odio ante fermentum lacus, tristique adipiscing lectus leo sed dolor. In hac habitasse platea dictumst. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris eu purus quam. Aliquam erat volutpat. Nulla dictum luctus lobortis. Vivamus suscipit enim lacinia dui molestie aliquam. Sed convallis semper turpis quis tincidunt. Suspendisse ultrices vestibulum hendrerit. Morbi sed luctus arcu. Vivamus pellentesque metus ut mauris sollicitudin egestas. Praesent iaculis auctor turpis vel venenatis.
+</p>
+<p>
+Mauris congue hendrerit justo, nec sagittis urna mollis sit amet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed adipiscing neque non nunc sollicitudin quis molestie tortor blandit. In libero arcu, sodales id suscipit ac, condimentum ac leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus id quam diam, in luctus nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam sit amet eros eros. Vestibulum condimentum dignissim nisi sit amet varius. Mauris tempor tortor laoreet elit imperdiet nec fringilla ligula volutpat. Suspendisse vitae elit nisl. Praesent laoreet purus lectus, et commodo turpis.
+
+</p>
+<p>
+Sed volutpat ante lectus. Ut rutrum dictum leo, ac faucibus augue adipiscing nec. Nunc placerat eros at arcu vulputate aliquam. Pellentesque vitae nibh non odio viverra tempor. Fusce rhoncus nisl nec tortor sagittis non gravida risus consectetur. Aenean euismod, ligula sit amet ultrices auctor, elit enim venenatis tortor, a pellentesque tellus leo sed ante. Integer adipiscing vehicula risus ut viverra. Nunc condimentum lectus non nibh luctus ut congue diam molestie. Maecenas velit nulla, ultricies id aliquam a, pharetra eu arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+</p>
+<p>
+Aliquam et urna tellus. Cras vitae turpis libero, et varius massa. Duis vitae sem et diam molestie condimentum ut quis dui. Nulla arcu nibh, tincidunt in tempus vel, condimentum a nibh. Sed tincidunt dui in nunc adipiscing et pretium nisi semper. Sed porta leo ac arcu viverra posuere. Aenean vel nulla vel nisi ornare consequat. Sed nec interdum nunc. Nulla facilisi. Maecenas augue erat, dictum ac laoreet pharetra, convallis id quam. Duis mauris nulla, accumsan id aliquam a, faucibus eu nulla. Nunc auctor iaculis metus, vitae viverra eros suscipit sed. Donec vel arcu augue. Integer massa lorem, tincidunt nec tristique vitae, consequat in nulla. Proin lacinia elit id purus semper non congue nibh laoreet. Morbi pharetra augue arcu, a dignissim nunc. Praesent nec eros mauris. Proin malesuada risus at nibh placerat non faucibus lorem condimentum. Nam a suscipit tortor. Proin non tellus sit amet nisl gravida tincidunt.
+</p>
+<p>
+Maecenas dui risus, sagittis quis placerat sed, imperdiet nec odio. Nulla rutrum, justo vitae pharetra rhoncus, metus ipsum laoreet ante, vel interdum mauris tellus et sem. Vivamus aliquam velit ut mauris hendrerit interdum. Maecenas faucibus ipsum eros. Nam eu orci odio. Fusce vehicula felis vel tellus convallis porta. Mauris augue nisi, mollis vitae porta non, ultrices ac tellus. Suspendisse potenti. Vivamus urna nulla, hendrerit at commodo non, interdum a purus. Integer tristique nisi in mauris adipiscing dapibus. Aliquam congue, felis quis vestibulum iaculis, eros ipsum sagittis turpis, sit amet blandit risus mi id mauris.
+</p>
+{% endblock %}
+
+{% block sidebar %}	
+    <div class="options">
+        <a href="/fish/{{ fish.id }}/add_to_aquarium">Add to aquarium</a>
+        <form method="post" action="">
+            <input type="hidden" name="form_action" value="add_species" />
+            <input type="text" name="species_name" value="" />
+            <input type="submit" value="Add" />
+        </form>
+        <div class="clear"><span></span></div>
+    </div>
+    
+    <div class="item">
+        <h4>Taxonomy</h4>
+        <ul class="taxa_list">
+            <li><a href="/taxa/kingdom/{{ species.genus.family.order.fish_class.phylum.kingdom.name }}">{{ species.genus.family.order.fish_class.phylum.kingdom.name }}</a> <span class="light">kingdom</span></li>
+            <ul class="taxa_list">
+                <li><a href="/taxa/phylum/{{ species.genus.family.order.fish_class.phylum.name }}">{{ species.genus.family.order.fish_class.phylum.name }}</a> <span class="light">phylum</span></li>
+                <ul class="taxa_list">
+                    <li><a href="/taxa/class/{{ species.genus.family.order.fish_class.name }}">{{ species.genus.family.order.fish_class.name }}</a> <span class="light">class</span></li>
+                    <ul class="taxa_list">
+                        <li><a href="/taxa/order/{{ species.genus.family.order.name }}">{{ species.genus.family.order.name }}</a> <span class="light">order</span></li>
+                         <ul class="taxa_list">
+                            <li><a href="/taxa/family/{{ species.genus.family.name }}">{{ species.genus.family.name }}</a> <span class="light">family</span></li>
+                        </ul>
+                    </ul>
+                </ul>
+            </ul>
+        </ul>
+    </div>
+    
+    <div class="item">
+        {% for photo in flickr_photos %}
+            <div class="badge"><img src="http://www.flickr.com/favicon.ico" type="image/vnd.microsoft.icon" class="flickr_icon" /></div>
+    		<a href="{{ photo.url }}"><img src="{{ photo.src_l }}" alt="{{ photo.title }}" style="margin-right: 2px;" /></a>
+    		<div class="light" style="margin-left: 10px;padding-top: 5px;font-size:9pt;">photo by <a href="http://www.flickr.com/photos/{{ photo.ownername }}">{{ photo.ownername }}</a> <img src="http://mirrors.creativecommons.org/presskit/icons/cc.large.png" style="height:16px;" /></div>
+    	{% endfor %}
+    	<div style="clear:both"><span></span></div>
+        <!-- <br /><em>Name your fish photos, {{ fish.species.genus.title }} {{ fish.species.title }} on Flickr</em> -->
+    </div>
+{% endblock %}

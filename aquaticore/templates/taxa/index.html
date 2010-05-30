@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}taxonomy{% endblock %}
+
+{% block content %}
+<h2>Taxonomy</h2>
+<h3>Species </h3>
+<p><span class="light">{{ count_species|intcomma }} species</span></p>
+<ul class="light-list">
+{% for species in new_species %}
+    <li><a href="/taxa/species/{{ species.name }}">{{ species.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ species.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+
+<h3>Family</h3>
+<p><span class="light">{{ count_family|intcomma }} families</span></p>
+<ul class="light-list">
+{% for family in new_families %}
+    <li><a href="/taxa/family/{{ family.name }}">{{ family.name }}</a> <span class="light" style="float: right;">{{ family.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+
+<h3>Order</h3>
+<p><span class="light">{{ count_order|intcomma }} orders</span></p>
+<ul class="light-list">
+{% for order in new_orders %}
+    <li><a href="/taxa/order/{{ order.name }}">{{ order.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ order.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+
+<h3>Phylum</h3>
+<p><span class="light">{{ count_phylum|intcomma }} phylums</span></p>
+<ul class="light-list">
+{% for phylum in new_phylums %}
+    <li><a href="/taxa/phylum/{{ phylum.name }}">{{ phylum.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ phylum.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+{% block sidebar %}	
+{% endblock %}

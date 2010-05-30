@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}taxonomy - species{% endblock %}
+
+{% block content %}
+<h2>Taxonomy</h2>
+<h3>Species </h3>
+<p><span class="light">{{ count_species|intcomma }} species</span></p>
+<ul class="light-list">
+{% for species in species_list.object_list %}
+    <li><a href="/taxa/species/{{ species.name }}">{{ species.name }}</a> <span class="light" style="float: right;">&nbsp;&nbsp;{{ species.created|date:"M d, Y" }}</span> </li>
+{% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if species_list.has_previous %}
+            <a href="?page={{ species_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ species_list.number }} of {{ species_list.paginator.num_pages }}.
+        </span>
+
+        {% if species_list.has_next %}
+            <a href="?page={{ species_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}	
+{% endblock %}

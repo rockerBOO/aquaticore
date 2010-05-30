@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load comments %}
+
+{% block title %}{{ species.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ family.name }}</h2>
+{% ssi /web/aquaticore/templates/taxa/taxa_list.html parsed %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="item">
+        <ul class="taxa_list">
+            <li><a href="/taxa/kingdom/{{ family.order.fish_class.phylum.kingdom.name }}">{{ family.order.fish_class.phylum.kingdom.name }}</a></li>
+            <ul class="taxa_list">
+                <li><a href="/taxa/phylum/{{ family.order.fish_class.phylum.name }}">{{ family.order.fish_class.phylum.name }}</a></li>
+                <ul class="taxa_list">
+                    <li><a href="/taxa/class/{{ family.order.fish_class.name }}">{{ family.order.fish_class.name }}</a></li>
+                    <ul class="taxa_list">
+                        <li><a href="/taxa/order/{{ family.order.name }}">{{ family.order.name }}</a></li>
+                    </ul>
+                </ul>
+            </ul>
+        </ul>
+    </div>
+{% endblock %}
